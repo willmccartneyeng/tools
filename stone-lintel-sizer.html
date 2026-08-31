@@ -3,42 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Stone Lintel Sizer — Will McCartney, PE</title>
+<title>Structural Stone Lintel Calculator — Will McCartney, PE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:wght@400;600&display=swap" rel="stylesheet">
 <style>
   /* mccartneyeng.com palette and type */
   :root{
-    --tan:#D8D6CF;            /* page ground */
-    --navy:#465172;           /* text and rules */
+    --tan:#D8D6CF;
+    --navy:#465172;
     --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;
     --sans:"Libre Franklin","Helvetica Neue",Arial,sans-serif;
   }
-  html,body{margin:0;padding:0;background:var(--tan);color:var(--navy);
-    font-family:var(--serif);font-size:15px;line-height:1.65;}
-  .page{max-width:1100px;margin:0 auto;padding:1.5rem 1.25rem 3rem;}
-  .back{font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:.02em;
-    text-decoration:none;color:var(--navy);opacity:.7;display:inline-block;margin-bottom:2rem;}
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{margin:0;padding:0;background:var(--tan);color:var(--navy);
+    font-family:var(--serif);font-size:14px;line-height:1.55;}
+  .page{height:100dvh;display:flex;flex-direction:column;
+    padding:.9rem 1.25rem .5rem;max-width:1700px;margin:0 auto;}
+  .hdr{flex:0 0 auto;display:flex;align-items:baseline;gap:.9rem;flex-wrap:wrap;
+    margin:0 0 .7rem;padding-bottom:.55rem;border-bottom:1px solid rgba(70,81,114,.22);}
+  .back{font-family:var(--sans);font-size:.74rem;font-weight:600;letter-spacing:.02em;
+    text-decoration:none;color:var(--navy);opacity:.65;}
   .back:hover{opacity:1;}
-  h1{font-family:var(--serif);font-weight:400;font-size:1.5rem;line-height:1.35;
-    margin:0 0 .6rem;}
-  .lede{margin:0 0 2.25rem;max-width:62ch;opacity:.85;}
-  .foot{margin:3rem 0 0;padding-top:1rem;border-top:1px solid rgba(70,81,114,.25);
-    font-family:var(--sans);font-size:.78rem;line-height:1.6;max-width:70ch;opacity:.75;}
+  h1{font-family:var(--serif);font-weight:400;font-size:1.1rem;margin:0;line-height:1.3;}
+  details.about{font-family:var(--sans);font-size:.74rem;margin-left:auto;max-width:34rem;}
+  details.about summary{cursor:pointer;opacity:.65;list-style:none;}
+  details.about summary::-webkit-details-marker{display:none;}
+  details.about summary:before{content:"\2139  ";}
+  details.about p{margin:.4rem 0 0;opacity:.8;line-height:1.5;}
+  .tool{flex:1 1 auto;min-height:0;}
+  .foot{flex:0 0 auto;margin:.5rem 0 0;padding-top:.4rem;
+    border-top:1px solid rgba(70,81,114,.22);
+    font-family:var(--sans);font-size:.8rem;line-height:1.5;opacity:.72;}
   .foot a{color:inherit;}
-  /* the calculator inherits the serif for prose; controls and figures take the sans */
-  .tcalc legend{font-family:var(--sans);font-weight:600;text-transform:none;}
+  .foot strong{font-weight:600;}
+  .foot-sig{margin-top:.55rem;border-top:0;padding-top:0;}
+  /* controls, tables and drawing labels in the sans; prose stays in the serif */
+  .tcalc legend{font-family:var(--sans);font-weight:600;}
   .tcalc .tc-row label,.tcalc .tc-check label,.tcalc input,.tcalc select,
   .tcalc table,.tcalc .tc-cap,.tcalc .tc-note,.tcalc svg text{font-family:var(--sans);}
   .tcalc .tc-verdict{font-family:var(--serif);}
+
 </style>
 </head>
 <body>
 <div class="page">
-<a class="back" href="https://mccartneyeng.com">&larr; Will McCartney, PE</a>
-<h1>Stone lintel sizer</h1>
-<p class="lede">Allowable stress check of a plain stone lintel over a masonry opening: bending, shear, bearing, and deflection. Wall load is taken from arching action where the masonry above is deep enough to develop it, and in full where it is not.</p>
+<header class="hdr">
+  <a class="back" href="https://mccartneyeng.com/#otherprojects">&larr; Will McCartney, PE</a>
+  <h1>Structural Stone Lintel Calculator</h1>
+  <details class="about"><summary>Method and assumptions</summary><p>Allowable stress check of a plain stone lintel: bending, shear, bearing and deflection. Wall load is taken from arching action where the masonry above is deep enough to develop it, and in full where it is not. Allowable bending stress is the modulus of rupture divided by the factor of safety entered; use test data for the stone actually specified.</p></details>
+</header>
+<div class="tool">
 
 <!-- ===================== EMBED START ===================== -->
 <div class="tcalc" id="tcLintel">
@@ -48,8 +64,6 @@
   --tc-soft:color-mix(in srgb, currentColor 7%, transparent);
   color:inherit;font:inherit;font-variant-numeric:tabular-nums;max-width:100%;text-align:left;}
 .tcalc *{box-sizing:border-box;}
-.tcalc .tc-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;}
-@media(min-width:820px){.tcalc .tc-grid{grid-template-columns:19rem 1fr;gap:2rem;}}
 .tcalc fieldset{border:0;border-top:1px solid var(--tc-rule);margin:0 0 1.1rem;padding:.7rem 0 0;}
 .tcalc legend{padding:0 .5rem 0 0;font-size:.82em;letter-spacing:.02em;opacity:.65;}
 .tcalc .tc-row{display:flex;align-items:baseline;gap:.5rem;margin:.3rem 0;}
@@ -60,9 +74,6 @@
   border-radius:2px;text-align:right;}
 .tcalc select{width:100%;text-align:left;}
 .tcalc input:focus,.tcalc select:focus{outline:2px solid var(--tc-accent);outline-offset:1px;}
-.tcalc svg{display:block;width:100%;height:auto;overflow:visible;}
-.tcalc .tc-fig{margin:0 0 1.4rem;}
-.tcalc .tc-cap{font-size:.8em;opacity:.6;margin:.35rem 0 0;}
 .tcalc table{border-collapse:collapse;width:100%;font-size:.9em;}
 .tcalc td{padding:.24rem 0;border-bottom:1px solid var(--tc-soft);vertical-align:baseline;}
 .tcalc td:nth-child(2){text-align:right;white-space:nowrap;}
@@ -74,25 +85,20 @@
 </style>
 
 <div class="tc-grid">
-  <div>
+  <div class="tc-col tc-inputs">
     <fieldset>
       <legend>Opening and lintel</legend>
-      <div class="tc-row"><label for="tl-Lc">Clear opening</label><input type="number" id="tl-Lc" value="48" step="1" min="1"><span class="u">in</span></div>
+      <div class="tc-row"><label for="tl-Lc">Clear span</label><input type="number" id="tl-Lc" value="48" step="1" min="1"><span class="u">in</span></div>
       <div class="tc-row"><label for="tl-lb">Bearing, each end</label><input type="number" id="tl-lb" value="8" step=".5" min=".5"><span class="u">in</span></div>
       <div class="tc-row"><label for="tl-d">Lintel depth</label><input type="number" id="tl-d" value="8" step=".5" min=".5"><span class="u">in</span></div>
       <div class="tc-row"><label for="tl-b">Lintel width</label><input type="number" id="tl-b" value="8" step=".5" min=".5"><span class="u">in</span></div>
-      <div class="tc-row"><label for="tl-span">Effective span</label></div>
-      <div class="tc-row"><select id="tl-span">
-        <option value="tms">Clear span + depth, ≤ c/c bearing</option>
-        <option value="cc">Centre to centre of bearing</option>
-        <option value="clear">Clear span</option>
-      </select></div>
+      <div class="tc-reset"><button type="button" id="tl-reset-geom">Reset opening</button></div>
     </fieldset>
 
     <fieldset>
       <legend>Wall over the opening</legend>
-      <div class="tc-row"><label for="tl-gw">Masonry unit weight</label><input type="number" id="tl-gw" value="120" step="1" min="1"><span class="u">pcf</span></div>
-      <div class="tc-row"><label for="tl-tw">Thickness carried</label><input type="number" id="tl-tw" value="8" step=".5" min=".5"><span class="u">in</span></div>
+      <div class="tc-row"><label for="tl-gw">Wall unit weight</label><input type="number" id="tl-gw" value="120" step="1" min="1"><span class="u">pcf</span></div>
+      <div class="tc-row"><label for="tl-tw">Wall thickness</label><input type="number" id="tl-tw" value="8" step=".5" min=".5"><span class="u">in</span></div>
       <div class="tc-row"><label for="tl-hw">Height above lintel</label><input type="number" id="tl-hw" value="48" step="1" min="0"><span class="u">in</span></div>
       <div class="tc-row"><label for="tl-arch">Arching action</label></div>
       <div class="tc-row"><select id="tl-arch">
@@ -100,18 +106,17 @@
         <option value="60">60° from horizontal</option>
         <option value="0">None — full height of wall</option>
       </select></div>
+      <div class="tc-reset"><button type="button" id="tl-reset-wall">Reset wall</button></div>
     </fieldset>
 
     <fieldset>
       <legend>Other loads</legend>
-      <div class="tc-row"><label for="tl-ws">Line load at top of wall</label><input type="number" id="tl-ws" value="0" step="10" min="0"><span class="u">plf</span></div>
-      <div class="tc-row"><label for="tl-wsmode">…when arching develops</label></div>
-      <div class="tc-row"><select id="tl-wsmode">
-        <option value="arch">Carried around the opening</option>
-        <option value="apply">Applied to the lintel</option>
-      </select></div>
+      <div class="tc-row"><label for="tl-ws">Line load</label><input type="number" id="tl-ws" value="0" step="10" min="0"><span class="u">plf</span></div>
+      <div class="tc-row"><label for="tl-wsz">…elevation above lintel</label><input type="number" id="tl-wsz" value="48" step="1" min="0"><span class="u">in</span></div>
       <div class="tc-row"><label for="tl-P">Concentrated load</label><input type="number" id="tl-P" value="0" step="50" min="0"><span class="u">lb</span></div>
       <div class="tc-row"><label for="tl-Pa">…from left face</label><input type="number" id="tl-Pa" value="24" step="1"><span class="u">in</span></div>
+      <div class="tc-row"><label for="tl-Pz">…elevation above lintel</label><input type="number" id="tl-Pz" value="24" step="1" min="0"><span class="u">in</span></div>
+      <div class="tc-reset"><button type="button" id="tl-reset-loads">Reset loads</button></div>
     </fieldset>
 
     <fieldset>
@@ -123,20 +128,24 @@
       <div class="tc-row"><label for="tl-Fp">Allowable bearing</label><input type="number" id="tl-Fp" value="250" step="25" min="1"><span class="u">psi</span></div>
       <div class="tc-row"><label for="tl-E">Modulus of elasticity</label><input type="number" id="tl-E" value="4000" step="100" min="1"><span class="u">ksi</span></div>
       <div class="tc-row"><label for="tl-defl">Deflection limit, span /</label><input type="number" id="tl-defl" value="600" step="60" min="60"><span class="u">—</span></div>
+      <div class="tc-reset"><button type="button" id="tl-reset-stone">Reset stone</button></div>
     </fieldset>
   </div>
 
-  <div>
-    <figure class="tc-fig">
-      <svg id="tl-elev" viewBox="0 0 800 420" role="img" aria-label="Elevation of the opening, lintel, and load on the lintel"></svg>
-      <figcaption class="tc-cap" id="tl-cap">Elevation: opening, lintel, and the portion of wall carried.</figcaption>
-    </figure>
-    <figure class="tc-fig">
-      <svg id="tl-vm" viewBox="0 0 800 240" role="img" aria-label="Shear and bending moment diagrams"></svg>
-      <figcaption class="tc-cap">Shear (upper) and bending moment (lower) over the effective span.</figcaption>
+  <div class="tc-col tc-stage">
+    <figure class="tc-fig" id="tl-figelev">
+      <svg id="tl-elev" viewBox="0 0 800 420" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Elevation of the span, lintel, and load carried"></svg>
+      <figcaption class="tc-cap" id="tl-cap">Elevation: span, lintel, and the portion of wall carried.</figcaption>
     </figure>
     <div class="tc-verdict" id="tl-verdict"></div>
     <table id="tl-out"></table>
+  </div>
+
+  <div class="tc-col tc-side">
+    <figure class="tc-fig" id="tl-figvm">
+      <svg id="tl-vm" viewBox="0 0 800 270" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Shear and bending moment diagrams"></svg>
+      <figcaption class="tc-cap">Shear (upper) and bending moment (lower) over the effective span.</figcaption>
+    </figure>
     <p class="tc-note" id="tl-note"></p>
   </div>
 </div>
@@ -150,6 +159,12 @@
   function clear(s){ while(s.firstChild) s.removeChild(s.firstChild); }
   function fmt(v,d){ return isFinite(v) ? v.toLocaleString('en-US',
     {minimumFractionDigits:d,maximumFractionDigits:d}) : '—'; }
+  function dimf(v){                       /* whole numbers unless a decimal was entered */
+    if (!isFinite(v)) return '—';
+    var r = Math.round(v);
+    return Math.abs(v-r) < 1e-9 ? r.toLocaleString('en-US')
+      : v.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:3});
+  }
   function txt(svg,x,y,s,anchor,op){ var e=el('text',{x:x,y:y,'text-anchor':anchor||'start',
     fill:'currentColor','font-size':'12','fill-opacity':op||'.75'},svg); e.textContent=s; return e; }
 
@@ -158,13 +173,13 @@
   function analyse(){
     var Lc=+$('tl-Lc').value, lb=+$('tl-lb').value, d=+$('tl-d').value, b=+$('tl-b').value;
     var gw=+$('tl-gw').value, tw=+$('tl-tw').value, hw=+$('tl-hw').value;
-    var ang=+$('tl-arch').value, ws=+$('tl-ws').value, P=+$('tl-P').value, Pa=+$('tl-Pa').value;
+    var ang=+$('tl-arch').value, ws=+$('tl-ws').value, wsz=+$('tl-wsz').value;
+    var P=+$('tl-P').value, Pa=+$('tl-Pa').value, Pz=+$('tl-Pz').value;
     var gs=+$('tl-gs').value, fr=+$('tl-fr').value, FS=+$('tl-fs').value;
     var Fv=+$('tl-Fv').value, Fp=+$('tl-Fp').value, E=+$('tl-E').value*1000, dl=+$('tl-defl').value;
 
-    var mode=$('tl-span').value;
     var Lcc = Lc + lb;                                  /* centre to centre of bearing */
-    var Le = mode==='clear' ? Lc : mode==='cc' ? Lcc : Math.min(Lc + d, Lcc);
+    var Le = Math.min(Lc + d, Lcc);                     /* TMS 402 rule for masonry beams */
     var off = (Le - Lc)/2;                              /* left end of opening on the span */
 
     /* wall load: height of masonry inside the corbelling triangle at x */
@@ -179,7 +194,10 @@
     };
 
     var wSelf = gs*b*d/144;                             /* plf */
-    var applyWs = (ws>0) && (!arching || $('tl-wsmode').value === 'apply');
+    /* a load above the apex of the corbelling triangle is carried around the opening;
+       one below it lands on the lintel.  With arching switched off, everything lands. */
+    var applyWs = ws>0 && (!arching || wsz < ha);
+    var applyP  = P>0  && (!arching || Pz < ha);
 
     /* distributed load intensity, plf, at station i */
     var w = new Array(N+1), dx = Le/N;
@@ -192,8 +210,9 @@
     for (var i=0;i<N;i++){ var wa=(w[i]+w[i+1])/2, xa=(i+0.5)*dx; Wd+=wa*dx/12; Md+=wa*dx/12*xa; }
     var Rl = (Wd*Le - Md)/Le;                           /* = sum W*(Le-x)/Le */
     var xP = off + Pa;
-    if (P>0){ Rl += P*(Le-xP)/Le; }
-    var Wt = Wd + P, Rr = Wt - Rl;
+    var Pw = applyP ? P : 0;
+    if (Pw>0){ Rl += Pw*(Le-xP)/Le; }
+    var Wt = Wd + Pw, Rr = Wt - Rl;
 
     /* shear and moment, lb and lb-in, by direct summation at each station */
     var Mi=new Array(N+1), Vi=new Array(N+1);
@@ -203,7 +222,7 @@
         var xa=(j+0.5)*dx, wa=(w[j]+w[j+1])/2*dx/12;    /* lb on this strip */
         if (xa<x){ m -= wa*(x-xa); v -= wa; }
       }
-      if (P>0 && xP<x){ m -= P*(x-xP); v -= P; }
+      if (Pw>0 && xP<x){ m -= Pw*(x-xP); v -= Pw; }
       Mi[i]=m; Vi[i]=v;
     }
     var Mmax=0, Vmax=0;
@@ -226,7 +245,8 @@
     var dAllow = Le/dl;
 
     return {Lc:Lc,lb:lb,d:d,b:b,Le:Le,Lcc:Lcc,off:off,hw:hw,ang:ang,ha:ha,arching:arching,
-      hAt:hAt,w:w,dx:dx,Vi:Vi,Mi:Mi,Wt:Wt,Wd:Wd,P:P,xP:xP,Rl:Rl,Rr:Rr,wSelf:wSelf,
+      hAt:hAt,w:w,dx:dx,Vi:Vi,Mi:Mi,Wt:Wt,Wd:Wd,P:P,Pw:Pw,xP:xP,Pz:Pz,wsz:wsz,
+      applyP:applyP,Rl:Rl,Rr:Rr,wSelf:wSelf,
       Mmax:Mmax,Vmax:Vmax,S:S,I:I,fb:fb,Fb:Fb,fv:fv,Fv:Fv,fp:fp,Fp:Fp,
       dmax:dmax,dAllow:dAllow,applyWs:applyWs,ws:ws,E:E,fr:fr,FS:FS};
   }
@@ -238,6 +258,8 @@
     var wallW = r.Lcc + 2*Math.max(r.lb, r.Lc*0.18);
     var wallH = Math.max(r.hw + r.d + 8, r.d*3);
     if (r.arching) wallH = Math.max(wallH, r.ha + r.d + 10);
+    if (r.ws>0) wallH = Math.max(wallH, r.wsz + r.d + 12);
+    if (r.P>0)  wallH = Math.max(wallH, r.Pz + r.d + 20);
     var openH = Math.min(r.Lc*0.55, 60);
     var totH = wallH + openH;
     var sc = Math.min((W-2*pad)/wallW, 430/totH);
@@ -245,6 +267,11 @@
     svg.setAttribute('viewBox','0 0 '+W+' '+H);
     var ox=W/2, oy=H-pad;                                 /* origin: sill level, centre */
     var X=function(x){return ox+x*sc;}, Y=function(y){return oy-y*sc;};
+    var defs=el('defs',{},svg);
+    var mkD=el('marker',{id:'tlDim',viewBox:'0 0 10 10',refX:'9.5',refY:'5',
+      markerWidth:'9',markerHeight:'9',markerUnits:'userSpaceOnUse',
+      orient:'auto-start-reverse'},defs);
+    el('path',{d:'M0,1.6 L10,5 L0,8.4 z',fill:'currentColor','fill-opacity':'.6'},mkD);
     var g=el('g',{fill:'none'},svg);
 
     var yL=openH, yT=openH+r.d;                           /* lintel soffit / top */
@@ -270,33 +297,49 @@
     dpath += ' L '+X(r.Lc/2)+' '+Y(yT)+' Z';
     el('path',{d:dpath,fill:'var(--tc-accent)','fill-opacity':'.13',
       stroke:'var(--tc-accent)','stroke-width':'1.1'},g);
-    /* line load at top of wall */
+    /* line load at its stated elevation */
     if (r.ws>0){
-      var yw=yT+r.hw;
-      el('line',{x1:X(-wallW/2),y1:Y(yw),x2:X(wallW/2),y2:Y(yw),
-        stroke:'currentColor','stroke-width':'1','stroke-opacity':'.55','stroke-dasharray':'5 3'},g);
-      txt(svg,X(wallW/2),Y(yw)-6,fmt(r.ws,0)+' plf'+(r.applyWs?'':' (arched around)'),'end');
+      var yw=yT+r.wsz;
+      var nq=13;
+      for (var q=0;q<nq;q++){
+        var xq=-wallW/2 + wallW*q/(nq-1);
+        el('line',{x1:X(xq),y1:Y(yw)+11,x2:X(xq),y2:Y(yw)+1,
+          stroke:'var(--tc-accent)','stroke-width':'1','stroke-opacity':'.8'},g);
+      }
+      el('line',{x1:X(-wallW/2),y1:Y(yw)+11,x2:X(wallW/2),y2:Y(yw)+11,
+        stroke:'var(--tc-accent)','stroke-width':'1.2'},g);
+      txt(svg,X(wallW/2)+6,Y(yw)+11,fmt(r.ws,0)+' plf'+(r.applyWs?'':' — arched around'),'start');
+      var xw=X(-wallW/2)-16;
+      el('line',{x1:xw,y1:Y(yT),x2:xw,y2:Y(yw),stroke:'currentColor','stroke-width':'.8',
+        'stroke-opacity':'.6','marker-start':'url(#tlDim)','marker-end':'url(#tlDim)'},g);
+      txt(svg,xw-6,Y(yT+r.wsz/2)+4,dimf(r.wsz)+'\u2033','end');
     }
-    /* point load */
+    /* concentrated load at its stated elevation */
     if (r.P>0){
       var xp=-r.Lc/2 + (r.xP - r.off);
-      var yTop = yT + Math.max(r.d*2.6, (r.ang?Math.min(r.hw,r.ha):r.hw*0.5) + r.d*1.2);
-      el('line',{x1:X(xp),y1:Y(yTop),x2:X(xp),y2:Y(yT),
-        stroke:'var(--tc-accent)','stroke-width':'1.6','marker-end':'url(#tlArrow)'},g);
-      var defs=el('defs',{},svg);
-      var mk=el('marker',{id:'tlArrow',viewBox:'0 0 10 10',refX:'9',refY:'5',
-        markerWidth:'6',markerHeight:'6',orient:'auto-start-reverse'},defs);
+      var yP=yT+r.Pz;
+      var defs2=el('defs',{},svg);
+      var mk=el('marker',{id:'tlArrow',viewBox:'0 0 10 10',refX:'9.5',refY:'5',
+        markerWidth:'11',markerHeight:'11',markerUnits:'userSpaceOnUse',
+        orient:'auto-start-reverse'},defs2);
       el('path',{d:'M0,0 L10,5 L0,10 z',fill:'var(--tc-accent)'},mk);
-      txt(svg,X(xp)+6,Y(yTop)-4,fmt(r.P,0)+' lb');
+      el('line',{x1:X(xp),y1:Y(yP)-46,x2:X(xp),y2:Y(yP),
+        stroke:'var(--tc-accent)','stroke-width':'2','marker-end':'url(#tlArrow)'},g);
+      txt(svg,X(xp)+7,Y(yP)-34,fmt(r.P,0)+' lb'+(r.applyP?'':' — arched around'),'start');
+      var xd=X(xp)-14;
+      el('line',{x1:xd,y1:Y(yT),x2:xd,y2:Y(yP),stroke:'currentColor','stroke-width':'.8',
+        'stroke-opacity':'.6','marker-start':'url(#tlDim)','marker-end':'url(#tlDim)'},g);
+      txt(svg,xd-6,Y(yT+r.Pz/2)+4,dimf(r.Pz)+'\u2033','end');
     }
     /* dimensions */
     var yd=oy+22;
-    el('line',{x1:X(-r.Lc/2),y1:yd,x2:X(r.Lc/2),y2:yd,stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.6'},g);
-    [-r.Lc/2,r.Lc/2].forEach(function(x){ el('line',{x1:X(x),y1:yd-5,x2:X(x),y2:yd+5,
-      stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.6'},g); });
-    txt(svg,ox,yd+15,fmt(r.Lc,1)+' in clear opening','middle');
-    txt(svg,X(-r.Lc/2-r.lb)-6,Y(yT-r.d/2)+4,fmt(r.d,1)+' × '+fmt(r.b,1)+' in','end');
-    txt(svg,X(r.Lc/2+r.lb)+6,Y(yT+r.d*0.15),fmt(r.lb,1)+' in bearing','start');
+    el('line',{x1:X(-r.Lc/2),y1:yd,x2:X(r.Lc/2),y2:yd,stroke:'currentColor','stroke-width':'.8',
+      'stroke-opacity':'.6','marker-start':'url(#tlDim)','marker-end':'url(#tlDim)'},g);
+    [-r.Lc/2,r.Lc/2].forEach(function(x){ el('line',{x1:X(x),y1:Y(0),x2:X(x),y2:yd+6,
+      stroke:'currentColor','stroke-width':'.6','stroke-opacity':'.35'},g); });
+    txt(svg,ox,yd+15,dimf(r.Lc)+'\u2033 clear span','middle');
+    txt(svg,X(-r.Lc/2-r.lb)-6,Y(yT-r.d/2)+4,dimf(r.d)+'\u2033 × '+dimf(r.b)+'\u2033','end');
+    txt(svg,X(r.Lc/2+r.lb)+6,Y(yT+r.d*0.15),dimf(r.lb)+'\u2033 bearing','start');
     $('tl-cap').textContent = r.ang
       ? (r.arching
          ? 'Elevation: the shaded triangle is the masonry carried by the lintel, with '+r.ang
@@ -334,46 +377,103 @@
     drawElev(r); drawVM(r);
     var rows=[];
     var dcr=function(a,c){ return a/c; };
-    var row=function(label,val,ratio){
-      var over = ratio!==undefined && ratio>1;
-      return '<tr><td'+(over?' class="tc-over"':'')+'>'+label+'</td><td>'+val+'</td><td>'
-        + (ratio===undefined?'':(over?'<span class="tc-over">':'')+fmt(ratio,2)+(over?'</span>':''))
-        +'</td></tr>';
+    var row=function(label,val,ratio,note){
+      var cls = ratio===undefined ? '' : (ratio>1 ? ' class="tc-flagrow low"' : ' class="tc-flagrow ok"');
+      return '<tr'+cls+'><td>'+label+'</td><td>'+val+'</td><td>'
+        + (ratio===undefined ? '' : fmt(ratio,2))
+        +'</td><td class="tc-say">'+(note||'')+'</td></tr>';
     };
-    rows.push('<tr><td class="tc-sub" colspan="3">Geometry and load</td></tr>');
-    rows.push(row('Effective span', fmt(r.Le,2)+' in'));
-    rows.push(row('Lintel self weight', fmt(r.wSelf,1)+' plf'));
-    rows.push(row('Wall carried' + (r.arching?' (arching developed)':''), fmt(r.Wd - r.wSelf*r.Le/12,0)+' lb'));
-    rows.push(row('Total load on lintel', fmt(r.Wt,0)+' lb'));
-    rows.push(row('Reaction, each end', fmt(r.Rl,0)+' / '+fmt(r.Rr,0)+' lb'));
-    rows.push('<tr><td class="tc-sub" colspan="3">Checks — demand, capacity, ratio</td></tr>');
-    rows.push(row('Bending, f<sub>b</sub> / F<sub>b</sub>', fmt(r.fb,1)+' / '+fmt(r.Fb,1)+' psi', dcr(r.fb,r.Fb)));
-    rows.push(row('Shear, f<sub>v</sub> / F<sub>v</sub>', fmt(r.fv,1)+' / '+fmt(r.Fv,1)+' psi', dcr(r.fv,r.Fv)));
-    rows.push(row('Bearing, f<sub>p</sub> / F<sub>p</sub>', fmt(r.fp,1)+' / '+fmt(r.Fp,1)+' psi', dcr(r.fp,r.Fp)));
-    rows.push(row('Deflection', fmt(r.dmax,4)+' / '+fmt(r.dAllow,3)+' in', dcr(r.dmax,r.dAllow)));
-    rows.push('<tr><td class="tc-sub" colspan="3">Section</td></tr>');
-    rows.push(row('Section modulus, S', fmt(r.S,1)+' in³'));
-    rows.push(row('Moment of inertia, I', fmt(r.I,1)+' in⁴'));
+    rows.push('<tr><td class="tc-sub" colspan="4">Geometry and load</td></tr>');
+    rows.push(row('Effective span', dimf(Math.round(r.Le*100)/100)+'\u2033', undefined,
+      'Clear span plus depth, capped at centre to centre of bearing'));
+    rows.push(row('Lintel self weight', fmt(r.wSelf,1)+' plf', undefined,
+      'Weight of the stone itself'));
+    rows.push(row('Wall carried' + (r.arching?' (arching developed)':''),
+      fmt(r.Wd - r.wSelf*r.Le/12,0)+' lb', undefined,
+      r.arching ? 'Masonry inside the arching triangle; the rest goes to the jambs'
+                : 'Full height of masonry over the opening'));
+    rows.push(row('Total load on lintel', fmt(r.Wt,0)+' lb', undefined,
+      'Self weight, wall, and any applied loads that reach the lintel'));
+    var lsay=function(on){
+      if (!r.ang) return 'Arching action is off, so this is carried by the lintel';
+      if (!r.arching) return 'The wall is too shallow to arch, so this is carried by the lintel';
+      return on ? 'Below the apex of the arching triangle, so carried by the lintel'
+                : 'Above the apex of the arching triangle, so carried around the span';
+    };
+    if (r.ws>0) rows.push(row('Line load at '+dimf(r.wsz)+'\u2033', fmt(r.ws,0)+' plf', undefined,
+      lsay(r.applyWs)));
+    if (r.P>0) rows.push(row('Concentrated load at '+dimf(r.Pz)+'\u2033', fmt(r.P,0)+' lb', undefined,
+      lsay(r.applyP)));
+    rows.push(row('Reaction, each end', fmt(r.Rl,0)+' / '+fmt(r.Rr,0)+' lb', undefined, 'Left / right'));
+    rows.push('<tr><td class="tc-sub" colspan="4">Checks — demand, capacity, ratio</td></tr>');
+    var say=function(x){ return x>1 ? 'Exceeds 1.0, the allowable value' : 'Below 1.0, the allowable value'; };
+    rows.push(row('Bending, f<sub>b</sub> / F<sub>b</sub>', fmt(r.fb,1)+' / '+fmt(r.Fb,1)+' psi',
+      dcr(r.fb,r.Fb), say(dcr(r.fb,r.Fb))+' — modulus of rupture over the factor of safety'));
+    rows.push(row('Shear, f<sub>v</sub> / F<sub>v</sub>', fmt(r.fv,1)+' / '+fmt(r.Fv,1)+' psi',
+      dcr(r.fv,r.Fv), say(dcr(r.fv,r.Fv))+' — peak shear stress, 1.5 V / bd'));
+    rows.push(row('Bearing, f<sub>p</sub> / F<sub>p</sub>', fmt(r.fp,1)+' / '+fmt(r.Fp,1)+' psi',
+      dcr(r.fp,r.Fp), say(dcr(r.fp,r.Fp))+' — stress on the masonry under the bearing'));
+    rows.push(row('Deflection', fmt(r.dmax,4)+' / '+fmt(r.dAllow,3)+'\u2033',
+      dcr(r.dmax,r.dAllow), say(dcr(r.dmax,r.dAllow))+' — against the span / N limit entered'));
+    rows.push('<tr><td class="tc-sub" colspan="4">Section</td></tr>');
+    rows.push(row('Section modulus, S', fmt(r.S,1)+' in³', undefined, 'b d² / 6'));
+    rows.push(row('Moment of inertia, I', fmt(r.I,1)+' in⁴', undefined, 'b d³ / 12'));
     $('tl-out').innerHTML = rows.join('');
 
     var worst = Math.max(r.fb/r.Fb, r.fv/r.Fv, r.fp/r.Fp, r.dmax/r.dAllow);
     var which = [[r.fb/r.Fb,'bending'],[r.fv/r.Fv,'shear'],[r.fp/r.Fp,'bearing'],
                  [r.dmax/r.dAllow,'deflection']].sort(function(a,b){return b[0]-a[0];})[0][1];
-    $('tl-verdict').innerHTML = worst<=1
+    var v = $('tl-verdict');
+    v.className = 'tc-verdict ' + (worst<=1 ? 'ok' : 'low');
+    v.textContent = worst<=1
       ? 'Section works. Governing check is '+which+', at '+fmt(worst*100,0)+'% of allowable.'
-      : '<span class="tc-over">Section overstressed in '+which+', at '+fmt(worst*100,0)+'% of allowable.</span>';
+      : 'Section overstressed in '+which+', at '+fmt(worst*100,0)+'% of allowable.';
 
     var n=[];
     if (r.ang && !r.arching) n.push('The wall above is shallower than the '+r.ang+'° apex, so the full trapezoid of masonry is taken on the lintel rather than a triangle.');
-    if (r.arching && r.ws>0 && !r.applyWs) n.push('The line load at the top of the wall sits above the arching triangle and is taken around the opening. Change the selection to place it on the lintel.');
+    if (r.arching) n.push('The apex of the arching triangle is '+dimf(Math.round(r.ha*100)/100)+'\u2033 above the lintel. An applied load above that elevation is taken around the span; one below it is carried by the lintel.');
+    if (!r.ang) n.push('Arching action is switched off, so every applied load is taken on the lintel regardless of its elevation.');
     n.push('Plain stone in flexure. Allowable bending stress is the modulus of rupture divided by the factor of safety entered above; use test data for the specific stone (ASTM C99 or C880) rather than a generic value. Arching action assumes a wall that is continuous and uncracked over the opening with enough length either side of the jambs to resist the horizontal thrust.');
     $('tl-note').textContent = n.join(' ');
   }
 
-  ['tl-Lc','tl-lb','tl-d','tl-b','tl-span','tl-gw','tl-tw','tl-hw','tl-arch','tl-ws','tl-wsmode',
-   'tl-P','tl-Pa','tl-gs','tl-fr','tl-fs','tl-Fv','tl-Fp','tl-E','tl-defl'].forEach(function(id){
-    $(id).addEventListener('change', render);
-    $(id).addEventListener('input', render);
+  var FIELDS = ['tl-Lc','tl-lb','tl-d','tl-b','tl-gw','tl-tw','tl-hw','tl-arch',
+    'tl-ws','tl-wsz','tl-P','tl-Pa','tl-Pz','tl-gs','tl-fr','tl-fs','tl-Fv','tl-Fp','tl-E','tl-defl'];
+  var timer = 0;
+  function queue(){ clearTimeout(timer); timer = setTimeout(render, 90); }
+  FIELDS.forEach(function(id){
+    $(id).addEventListener('change', queue);
+    $(id).addEventListener('input', queue);
+  });
+
+  var DEF = {};
+  FIELDS.forEach(function(id){ DEF[id] = $(id).value; });
+  var GROUP = {
+    'tl-reset-geom':  ['tl-Lc','tl-lb','tl-d','tl-b'],
+    'tl-reset-wall':  ['tl-gw','tl-tw','tl-hw','tl-arch'],
+    'tl-reset-loads': ['tl-ws','tl-wsz','tl-P','tl-Pa','tl-Pz'],
+    'tl-reset-stone': ['tl-gs','tl-fr','tl-fs','tl-Fv','tl-Fp','tl-E','tl-defl']
+  };
+  Object.keys(GROUP).forEach(function(bid){
+    $(bid).addEventListener('click', function(){
+      GROUP[bid].forEach(function(id){ $(id).value = DEF[id]; });
+      render();
+    });
+  });
+
+  /* click into a number field, then scroll to step it up and down */
+  Array.prototype.forEach.call(document.querySelectorAll('#tcLintel input[type=number]'), function(f){
+    f.addEventListener('wheel', function(e){
+      if (document.activeElement !== f) return;      /* only when the field has focus */
+      e.preventDefault();
+      var st = parseFloat(f.step) || 1;
+      var lo = f.min === '' ? -Infinity : parseFloat(f.min);
+      var hi = f.max === '' ?  Infinity : parseFloat(f.max);
+      var v = (parseFloat(f.value) || 0) + (e.deltaY < 0 ? st : -st);
+      v = Math.min(hi, Math.max(lo, Math.round(v / st) * st));
+      f.value = parseFloat(v.toFixed(6));
+      f.dispatchEvent(new Event('change', {bubbles:true}));
+    }, {passive:false});
   });
   render();
 })();
@@ -381,12 +481,69 @@
 </div>
 <!-- ====================== EMBED END ====================== -->
 
-<p class="foot">Published for preliminary sizing and instruction. Not a substitute for
-engineering judgment, project-specific analysis, or a sealed design; no engineer&ndash;client
-relationship arises from use of this page. Results depend entirely on the values entered,
-including material strengths, which must come from test data for the material actually used.
-Verify all output independently before relying on it.
-<br><br>Will McCartney, PE &mdash; <a href="https://mccartneyeng.com">mccartneyeng.com</a></p>
 </div>
+<p class="foot"><strong>Use and liability:</strong> While I believe these tools to be free of
+error, I cannot be held liable for their results. They are to be used for
+instruction and should not be used to design a building or its components. There almost certainly are
+assumptions made for this tool that do not apply to your scenario.
+If you do something interesting with one of my tools, please tell me about it!</p>
+<p class="foot foot-sig">Will McCartney, PE &mdash; <a href="https://mccartneyeng.com/#otherprojects">mccartneyeng.com</a></p>
+</div>
+<style>
+  .tcalc select,.tcalc select option,.tcalc input[type=number]{
+    font-family:var(--sans);font-weight:600;}
+  .tcalc .tc-cap,.tcalc .tc-note,details.about p{font-family:var(--serif);}
+  .tcalc tr.tc-flagrow td{font-weight:600;}
+  .tcalc tr.tc-flagrow.ok td{color:#2f6b4a;}
+  .tcalc tr.tc-flagrow.low td{color:var(--tc-accent);}
+  .tcalc td.tc-say{text-align:left;white-space:normal;opacity:.6;font-weight:400;
+    font-size:.92em;line-height:1.35;}
+  .tcalc td:nth-child(3){text-align:right;white-space:nowrap;width:4rem;padding-right:1.4rem;}
+  .tcalc .tc-verdict{font-family:var(--sans);font-weight:600;font-size:1.25rem;text-align:center;}
+  .tcalc .tc-verdict.ok{color:#2f6b4a;}
+  .tcalc .tc-verdict.low{color:var(--tc-accent);}
+  .tcalc .tc-reset{margin:.55rem 0 .1rem;}
+  .tcalc .tc-reset button{font:inherit;font-family:var(--sans);font-size:.78em;
+    color:inherit;background:none;border:0;border-bottom:1px solid var(--tc-rule);
+    padding:0 0 1px;cursor:pointer;opacity:.6;}
+  .tcalc .tc-reset button:hover{opacity:1;}
+  h1{font-variant:small-caps;letter-spacing:.03em;font-size:1.6rem;
+    justify-self:center;text-align:center;}
+  .hdr{display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline;}
+  .back{justify-self:start;}
+  details.about{justify-self:end;margin-left:0;text-align:left;}
+  .back{font-family:var(--serif);font-variant:small-caps;font-weight:400;
+    font-size:.9rem;letter-spacing:.03em;}
+  /* ---- one-screen layout ---- */
+
+  .tcalc{height:100%;}
+  .tcalc .tc-grid{display:grid;gap:1.1rem;height:100%;min-height:0;
+    grid-template-columns:1fr;}
+  .tcalc .tc-col{min-height:0;display:flex;flex-direction:column;}
+  .tcalc .tc-inputs{overflow-y:auto;padding-right:.5rem;}
+  .tcalc .tc-fig{margin:0;display:flex;flex-direction:column;min-height:0;}
+  .tcalc .tc-fig svg{width:100%;height:100%;min-height:0;flex:1 1 auto;display:block;overflow:hidden;}
+  .tcalc .tc-cap{margin:.3rem 0 0;font-size:.68rem;opacity:.6;flex:0 0 auto;line-height:1.35;}
+  .tcalc fieldset{margin-bottom:.8rem;padding-top:.5rem;}
+  .tcalc .tc-row{margin:.22rem 0;}
+  .tcalc table{margin-top:.5rem;}
+  .tcalc .tc-note{margin:.5rem 0 0;font-size:.68rem;}
+  @media (min-width:1040px){
+    .tcalc .tc-grid{grid-template-columns:16.5rem minmax(0,1fr) 21rem;}
+    .tcalc .tc-stage #tl-figelev{flex:1 1 auto;min-height:0;}
+    .tcalc .tc-stage table{flex:0 0 auto;max-height:40%;overflow-y:auto;display:block;}
+    .tcalc .tc-verdict{flex:0 0 auto;margin:.8rem 0 .2rem;font-size:.95rem;
+      padding-top:.5rem;border-top:1px solid var(--tc-rule);}
+    .tcalc .tc-side #tl-figvm{flex:1 1 auto;min-height:0;}
+    .tcalc .tc-side{overflow:hidden;}
+  }
+  @media (max-width:1039px){
+    html,body{height:auto;}
+    .page{height:auto;}
+    .tcalc .tc-fig svg{height:auto;flex:0 0 auto;}
+    .tcalc .tc-col{overflow:visible;}
+    details.about{margin-left:0;}
+  }
+</style>
 </body>
 </html>
