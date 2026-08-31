@@ -3,42 +3,63 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Masonry Arch Thrust Line — Will McCartney, PE</title>
+<title>Thrust Line Analysis of a Masonry Arch — Will McCartney, PE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:wght@400;600&display=swap" rel="stylesheet">
 <style>
   /* mccartneyeng.com palette and type */
   :root{
-    --tan:#D8D6CF;            /* page ground */
-    --navy:#465172;           /* text and rules */
+    --tan:#D8D6CF;
+    --navy:#465172;
     --serif:"Libre Baskerville",Georgia,"Times New Roman",serif;
     --sans:"Libre Franklin","Helvetica Neue",Arial,sans-serif;
   }
-  html,body{margin:0;padding:0;background:var(--tan);color:var(--navy);
-    font-family:var(--serif);font-size:15px;line-height:1.65;}
-  .page{max-width:1100px;margin:0 auto;padding:1.5rem 1.25rem 3rem;}
-  .back{font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:.02em;
-    text-decoration:none;color:var(--navy);opacity:.7;display:inline-block;margin-bottom:2rem;}
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{margin:0;padding:0;background:var(--tan);color:var(--navy);
+    font-family:var(--serif);font-size:14px;line-height:1.55;}
+  .page{height:100dvh;display:flex;flex-direction:column;
+    padding:.9rem 1.25rem .5rem;max-width:1700px;margin:0 auto;}
+  .hdr{flex:0 0 auto;display:flex;align-items:baseline;gap:.9rem;flex-wrap:wrap;
+    margin:0 0 .7rem;padding-bottom:.55rem;border-bottom:1px solid rgba(70,81,114,.22);}
+  .back{font-family:var(--sans);font-size:.74rem;font-weight:600;letter-spacing:.02em;
+    text-decoration:none;color:var(--navy);opacity:.65;}
   .back:hover{opacity:1;}
-  h1{font-family:var(--serif);font-weight:400;font-size:1.5rem;line-height:1.35;
-    margin:0 0 .6rem;}
-  .lede{margin:0 0 2.25rem;max-width:62ch;opacity:.85;}
-  .foot{margin:3rem 0 0;padding-top:1rem;border-top:1px solid rgba(70,81,114,.25);
-    font-family:var(--sans);font-size:.78rem;line-height:1.6;max-width:70ch;opacity:.75;}
+  h1{font-family:var(--serif);font-weight:400;font-size:1.1rem;margin:0;line-height:1.3;}
+  details.about{font-family:var(--sans);font-size:.74rem;margin-left:auto;max-width:34rem;}
+  details.about summary{cursor:pointer;opacity:.65;list-style:none;}
+  details.about summary::-webkit-details-marker{display:none;}
+  details.about summary:before{content:"\2139  ";}
+  details.about p{margin:.4rem 0 0;opacity:.8;line-height:1.5;}
+  .tool{flex:1 1 auto;min-height:0;}
+  .foot{flex:0 0 auto;margin:.5rem 0 0;padding-top:.4rem;
+    border-top:1px solid rgba(70,81,114,.22);
+    font-family:var(--sans);font-size:.8rem;line-height:1.5;opacity:.72;}
   .foot a{color:inherit;}
-  /* the calculator inherits the serif for prose; controls and figures take the sans */
-  .tcalc legend{font-family:var(--sans);font-weight:600;text-transform:none;}
+  .foot strong{font-weight:600;}
+  .foot-sig{margin-top:.55rem;border-top:0;padding-top:0;}
+  /* controls, tables and drawing labels in the sans; prose stays in the serif */
+  .tcalc legend{font-family:var(--sans);font-weight:600;}
   .tcalc .tc-row label,.tcalc .tc-check label,.tcalc input,.tcalc select,
   .tcalc table,.tcalc .tc-cap,.tcalc .tc-note,.tcalc svg text{font-family:var(--sans);}
   .tcalc .tc-verdict{font-family:var(--serif);}
+
 </style>
 </head>
 <body>
 <div class="page">
-<a class="back" href="https://mccartneyeng.com">&larr; Will McCartney, PE</a>
-<h1>Line of thrust in a masonry arch</h1>
-<p class="lede">Limit analysis by graphic statics. Enter a geometry and the tool finds the range of horizontal thrust for which a line of thrust fits inside the arch ring. Zero tensile strength, rigid blocks, and no sliding are assumed, after Heyman. Compressive stress at the joints is not checked.</p>
+<header class="hdr">
+  <a class="back" href="https://mccartneyeng.com/#otherprojects">&larr; Will McCartney, PE</a>
+  <h1>Thrust Line Analysis of a Masonry Arch</h1>
+  <details class="about"><summary>Method and assumptions</summary><p>Limit analysis by graphic statics. The arch is cut into radial joints, each voussoir and its spandrel reduced to a vertical load at its centroid, and the admissible lines of thrust found from the safe theorem. Zero tensile strength, rigid blocks and no sliding are assumed, after Heyman. Compressive stress at the joints is not checked. The force polygon stacks the voussoir weights to
+scale on the load line with the pole set at the horizontal thrust, so each ray is parallel to the
+corresponding segment of the thrust line and the pole distance is the thrust itself. A point load is
+applied vertically at the entered distance from the crown, positive to the right, and carried straight
+down onto the arch. The line load is drawn across the whole wall, but only the part of it over the
+arch&rsquo;s own span is carried by the arch; the rest bears directly on the abutments.</p></details>
+</header>
+<div class="tool">
 
 <!-- ===================== EMBED START ===================== -->
 <div class="tcalc" id="tcArch">
@@ -49,8 +70,6 @@
   color:inherit;font:inherit;font-variant-numeric:tabular-nums;
   max-width:100%;text-align:left;}
 .tcalc *{box-sizing:border-box;}
-.tcalc .tc-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;}
-@media(min-width:820px){.tcalc .tc-grid{grid-template-columns:19rem 1fr;gap:2rem;}}
 .tcalc fieldset{border:0;border-top:1px solid var(--tc-rule);margin:0 0 1.1rem;padding:.7rem 0 0;}
 .tcalc legend{padding:0 .5rem 0 0;font-size:.82em;letter-spacing:.02em;opacity:.65;}
 .tcalc .tc-row{display:flex;align-items:baseline;gap:.5rem;margin:.3rem 0;}
@@ -64,9 +83,6 @@
   {outline:2px solid var(--tc-accent);outline-offset:1px;}
 .tcalc input[type=range]{width:100%;accent-color:var(--tc-accent);}
 .tcalc .tc-check{display:flex;gap:.45rem;align-items:center;font-size:.92em;margin:.35rem 0;}
-.tcalc svg{display:block;width:100%;height:auto;overflow:visible;}
-.tcalc .tc-fig{margin:0 0 1.4rem;}
-.tcalc .tc-cap{font-size:.8em;opacity:.6;margin:.35rem 0 0;}
 .tcalc table{border-collapse:collapse;width:100%;font-size:.9em;}
 .tcalc td{padding:.22rem 0;border-bottom:1px solid var(--tc-soft);vertical-align:baseline;}
 .tcalc td:last-child{text-align:right;white-space:nowrap;}
@@ -77,7 +93,7 @@
 </style>
 
 <div class="tc-grid">
-  <div class="tc-inputs">
+  <div class="tc-col tc-inputs">
     <fieldset>
       <legend>Arch</legend>
       <div class="tc-row"><label for="ta-type">Shape</label></div>
@@ -88,20 +104,23 @@
         <option value="parabolic">Parabolic</option>
         <option value="catenary">Catenary</option>
       </select></div>
-      <div class="tc-row"><label for="ta-span">Clear span, intrados</label><input type="number" id="ta-span" value="120" step="1" min="1"><span class="u">in</span></div>
-      <div class="tc-row" id="ta-riserow"><label for="ta-rise">Rise, intrados</label><input type="number" id="ta-rise" value="60" step="1" min="1"><span class="u">in</span></div>
-      <div class="tc-row"><label for="ta-t">Ring thickness</label><input type="number" id="ta-t" value="12" step=".5" min=".25"><span class="u">in</span></div>
+      <div class="tc-row"><label for="ta-span">Clear span, intrados</label><input type="number" id="ta-span" value="72" step="1" min="1"><span class="u">in</span></div>
+      <div class="tc-row" id="ta-riserow"><label for="ta-rise">Rise, intrados</label><input type="number" id="ta-rise" value="36" step="1" min="1"><span class="u">in</span></div>
+      <div class="tc-row"><label for="ta-t">Arch thickness</label><input type="number" id="ta-t" value="12" step=".5" min=".25"><span class="u">in</span></div>
       <div class="tc-row"><label for="ta-b">Depth into page</label><input type="number" id="ta-b" value="12" step="1" min="1"><span class="u">in</span></div>
-      <div class="tc-row"><label for="ta-n">Voussoirs</label><input type="number" id="ta-n" value="16" step="2" min="4" max="60"><span class="u">—</span></div>
+      <div class="tc-row"><label for="ta-n">Voussoirs</label><input type="number" id="ta-n" value="12" step="2" min="4" max="60"><span class="u">—</span></div>
+      <div class="tc-reset"><button type="button" id="ta-reset-arch">Reset arch</button></div>
     </fieldset>
 
     <fieldset>
       <legend>Loads</legend>
-      <div class="tc-row"><label for="ta-g">Ring unit weight</label><input type="number" id="ta-g" value="120" step="1" min="1"><span class="u">pcf</span></div>
-      <div class="tc-row"><label for="ta-hf">Fill level above springing</label><input type="number" id="ta-hf" value="0" step="1" min="0"><span class="u">in</span></div>
-      <div class="tc-row"><label for="ta-gf">Fill unit weight</label><input type="number" id="ta-gf" value="100" step="1" min="0"><span class="u">pcf</span></div>
+      <div class="tc-row"><label for="ta-g">Arch unit weight</label><input type="number" id="ta-g" value="120" step="1" min="1"><span class="u">pcf</span></div>
+      <div class="tc-row"><label for="ta-hf">Spandrel height</label><input type="number" id="ta-hf" value="48" step="1" min="0"><span class="u">in</span></div>
+      <div class="tc-row"><label for="ta-gf">Spandrel unit weight</label><input type="number" id="ta-gf" value="120" step="1" min="0"><span class="u">pcf</span></div>
+      <div class="tc-row"><label for="ta-wl">Line load at spandrel</label><input type="number" id="ta-wl" value="200" step="10" min="0"><span class="u">plf</span></div>
       <div class="tc-row"><label for="ta-P">Point load</label><input type="number" id="ta-P" value="0" step="10" min="0"><span class="u">lb</span></div>
       <div class="tc-row"><label for="ta-Px">…at x from crown</label><input type="number" id="ta-Px" value="0" step="1"><span class="u">in</span></div>
+      <div class="tc-reset"><button type="button" id="ta-reset-loads">Reset loads</button></div>
     </fieldset>
 
     <fieldset>
@@ -110,23 +129,24 @@
         <input type="range" id="ta-H" min="0" max="1000" value="500">
         <div class="tc-hval"><span id="ta-Hlo">—</span><span id="ta-Hhi">—</span></div>
       </div>
-      <div class="tc-check"><input type="checkbox" id="ta-poly" checked><label for="ta-poly">Show force polygon</label></div>
-      <div class="tc-check"><input type="checkbox" id="ta-dims" checked><label for="ta-dims">Show dimensions</label></div>
     </fieldset>
 
-    <table id="ta-out"></table>
   </div>
 
-  <div class="tc-figs">
-    <figure class="tc-fig">
-      <svg id="ta-form" viewBox="0 0 800 460" role="img" aria-label="Arch geometry and line of thrust"></svg>
-      <figcaption class="tc-cap" id="ta-cap1">Form diagram: arch ring, radial joints, and the line of thrust for the selected horizontal thrust.</figcaption>
+  <div class="tc-col tc-stage">
+    <figure class="tc-fig" id="ta-figform">
+      <svg id="ta-form" viewBox="0 0 800 460" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Arch geometry and line of thrust"></svg>
     </figure>
+  </div>
+
+  <div class="tc-col tc-side">
     <figure class="tc-fig" id="ta-figpoly">
-      <svg id="ta-poly-svg" viewBox="0 0 800 380" role="img" aria-label="Force polygon"></svg>
-      <figcaption class="tc-cap">Force polygon: voussoir weights stacked to scale on the load line, pole set at the horizontal thrust. Each ray is parallel to the corresponding segment of the thrust line.</figcaption>
+      <svg id="ta-poly-svg" viewBox="0 0 800 380" preserveAspectRatio="xMaxYMin meet" role="img" aria-label="Force polygon"></svg>
     </figure>
-    <p class="tc-note" id="ta-note"></p>
+  </div>
+
+  <div class="tc-col tc-results">
+    <table id="ta-out"></table>
   </div>
 </div>
 
@@ -223,7 +243,7 @@ function intradosSampler(type, S, f) {
 /* resample the intrados at nSeg+1 equal-arc-length joints */
 function buildGeometry(type, S, f, t, nSeg) {
   const smp = intradosSampler(type, S, f);
-  const N = 2000, pts = [];
+  const N = 700, pts = [];
   for (let i = 0; i <= N; i++) pts.push(smp.at(i / N));
   const s = [0];
   for (let i = 1; i <= N; i++) s.push(s[i - 1] + V.len(V.sub(pts[i].p, pts[i - 1].p)));
@@ -244,6 +264,15 @@ function buildGeometry(type, S, f, t, nSeg) {
   for (let i = 0; i <= 200; i++) {
     const q = smp.at(i / 200);
     outInt.push(q.p); outExt.push(V.add(q.p, V.mul(q.n, t)));
+  }
+  if (type === 'pointed') {
+    /* the two extrados arcs meet on the mitre plane at the crown, above the
+       radial offset of the intrados point; carry both of them up to it */
+    const a = S / 2, d = (f * f - a * a) / S, R = d + a;
+    const apex = { x: 0, y: Math.sqrt((R + t) * (R + t) - d * d) };
+    const jm = joints[nSeg / 2];
+    if (jm) { jm.ext = apex; jm.n = V.unit(V.sub(apex, jm.int)); }
+    outExt[100] = apex;
   }
   return { joints, outInt, outExt };
 }
@@ -285,9 +314,11 @@ function buildLoads(geo, inp, jointsOverride) {
     const poly = [j0.int, j1.int, j1.ext, j0.ext];
     const m = polyAC(poly);
     const fl = fillBlock(j0.ext, j1.ext, inp.hFill);
-    const Wm = m.A * kMas, Wf = fl.A * kFill, W = Wm + Wf;
-    const cx = W > 0 ? (m.c.x * Wm + fl.c.x * Wf) / W : m.c.x;
-    vous.push({ poly, Wm, Wf, W, x: cx, cm: m.c });
+    const dxe = Math.abs(j1.ext.x - j0.ext.x), xe = (j0.ext.x + j1.ext.x) / 2;
+    const Wl = (inp.wLine || 0) * dxe / 12;            /* plf over the horizontal projection */
+    const Wm = m.A * kMas, Wf = fl.A * kFill, W = Wm + Wf + Wl;
+    const cx = W > 0 ? (m.c.x * Wm + fl.c.x * Wf + xe * Wl) / W : m.c.x;
+    vous.push({ poly, Wm, Wf, Wl, W, x: cx, cm: m.c });
     if (W > 0) loads.push({ x: cx, W });
   }
   if (inp.P > 0) loads.push({ x: inp.Px, W: inp.P });
@@ -317,7 +348,7 @@ function feasible(joints, Mf, H, scale) {
     int.push({ x: j.int.x, b: j.int.y - Mf(j.int.x) / H });   // c1 + c2*x >= b
   }
   let best = null;
-  const lim = 4, NC = 201;                            // c2 sweep
+  const lim = 4, NC = 121;                            // c2 sweep
   const test = c2 => {
     let hi = Infinity, lo = -Infinity;
     for (const e of ext) hi = Math.min(hi, e.b - c2 * e.x);
@@ -336,35 +367,42 @@ function feasible(joints, Mf, H, scale) {
     c2lo = bc2 - step; c2hi = bc2 + step;
     best = { c2: bc2, gap: bg, r: br };
   }
-  if (!best || best.gap < 0) return null;
-  return { c1: (best.r.lo + best.r.hi) / 2, c2: best.c2, slack: best.gap };
+  return { c1: (best.r.lo + best.r.hi) / 2, c2: best.c2, slack: best.gap, gap: best.gap };
 }
 
 /* ---------------- Hmin / Hmax by bracketing + bisection ------------------ */
-function thrustRange(joints, Mf, H0, scale) {
-  const ok = H => !!feasible(joints, Mf, H, scale);
-  let seed = null;
-  for (let i = 0; i <= 120; i++) {
-    const H = H0 * Math.pow(10, -1.5 + 3 * i / 120);
-    if (ok(H)) { seed = H; break; }
+function bestH(joints, Mf, H0, scale) {
+  /* the LP slack against H is single-peaked, so a ternary search finds the widest
+     corridor far more reliably than sampling H on a grid */
+  const gap = H => feasible(joints, Mf, H, scale).gap;
+  let a = Math.log(H0 * 0.02), b = Math.log(H0 * 50);
+  for (let i = 0; i < 40; i++) {
+    const m1 = a + (b - a) / 3, m2 = b - (b - a) / 3;
+    if (gap(Math.exp(m1)) < gap(Math.exp(m2))) a = m1; else b = m2;
   }
-  if (seed === null) return null;
-  const bisect = (a, b) => { // a infeasible, b feasible
-    for (let i = 0; i < 26; i++) { const m = (a + b) / 2; if (ok(m)) b = m; else a = m; }
+  const H = Math.exp((a + b) / 2);
+  return { H, gap: gap(H) };
+}
+function thrustRange(joints, Mf, H0, scale) {
+  const ok = H => feasible(joints, Mf, H, scale).gap >= 0;
+  const peak = bestH(joints, Mf, H0, scale);
+  if (peak.gap < 0) return null;
+  const bisect = (a, b) => {            /* a infeasible, b feasible */
+    for (let i = 0; i < 22; i++) { const m = (a + b) / 2; if (ok(m)) b = m; else a = m; }
     return b;
   };
-  let lo = seed / 2; while (ok(lo) && lo > H0 * 1e-4) lo /= 2;
-  let hi = seed * 2; while (ok(hi) && hi < H0 * 1e4) hi *= 2;
-  return { Hmin: bisect(lo, seed), Hmax: bisect(hi, seed) };
+  let lo = peak.H / 2; while (ok(lo) && lo > H0 * 1e-4) lo /= 2;
+  let hi = peak.H * 2; while (ok(hi) && hi < H0 * 1e4) hi *= 2;
+  return { Hmin: bisect(lo, peak.H), Hmax: bisect(hi, peak.H) };
 }
 
 /* ---------------- Heyman geometric factor of safety ---------------------- */
 function geoSafety(geo, t, Mf, H0, scale) {
-  const test = fac => thrustRange(shrinkRing(geo, t, fac), Mf, H0, scale) !== null;
+  const test = fac => bestH(shrinkRing(geo, t, fac), Mf, H0, scale).gap >= 0;
   if (!test(1.0)) return null;
   let lo = 1, hi = 2;
   while (test(hi) && hi < 64) { lo = hi; hi *= 2; }
-  for (let i = 0; i < 18; i++) { const m = (lo + hi) / 2; if (test(m)) lo = m; else hi = m; }
+  for (let i = 0; i < 13; i++) { const m = (lo + hi) / 2; if (test(m)) lo = m; else hi = m; }
   return lo;
 }
 /* ring of reduced thickness t/fac about the same centreline */
@@ -379,7 +417,7 @@ function shrinkRing(geo, t, fac) {
 /* ---------------- full solve --------------------------------------------- */
 function solve(inp) {
   const geo = buildGeometry(inp.type, inp.span, inp.rise, inp.t, inp.nSeg);
-  const nFine = Math.max(inp.nSeg, 240);
+  const nFine = Math.max(inp.nSeg, 180);
   const fine = buildGeometry(inp.type, inp.span, inp.rise, inp.t, nFine);
   const disp = buildLoads(geo, inp);                 // blocks shown in the force polygon
   const stat = buildLoads(fine, inp, fine.joints);   // fine loads used for statics
@@ -387,17 +425,34 @@ function solve(inp) {
   const H0 = bm.Wt * inp.span / (8 * Math.max(inp.rise, 1e-6));
   const rng = thrustRange(geo.joints, bm.M, H0, inp.span);
   const out = { geo, loads: stat.loads, vous: disp.vous, beam: bm, H0, range: rng };
-  if (rng) out.gfos = geoSafety(geo, inp.t, bm.M, H0, inp.span);
-  return out;
+  return out;                       /* gfos is computed separately, off the critical path */
 }
 
 /* thrust-line ordinates + joint checks for a chosen H */
 function thrustLine(geo, bm, loads, H, span) {
   const sol = feasible(geo.joints, bm.M, H, span);
-  if (!sol) return null;
+  if (sol.gap < 0) return null;
   const y = x => sol.c1 + sol.c2 * x + bm.M(x) / H;
+  /* carry the line out to the springing line and a little below it */
+  const tail = 0.02 * span, step = span / 500;
+  const j0 = geo.joints[0];
+  const tt = Math.hypot(j0.ext.x - j0.int.x, j0.ext.y - j0.int.y) || span * 0.05;
+  const reach = Math.max(1.6 * tt, 0.05 * span);      /* how far past the springing to carry it */
+  const run = (x0, dir) => {
+    let x = x0, n = 0;
+    while (y(x) > -tail && n < 900 && Math.abs(x) < span / 2 + reach) { x += dir * step; n++; }
+    return x;
+  };
+  const zero = (x0, dir) => {
+    let a = x0, b = run(x0, dir);
+    if (y(a) <= 0) return { x: a, y: y(a) };
+    for (let i = 0; i < 40; i++) { const m = (a + b) / 2; if (y(m) > 0) a = m; else b = m; }
+    return { x: (a + b) / 2, y: 0 };
+  };
+  const xa = run(-span / 2, -1), xb = run(span / 2, 1);
+  const endL = zero(-span / 2, -1), endR = zero(span / 2, 1);
   const pts = [];
-  for (let i = 0; i <= 200; i++) { const x = -span / 2 + span * i / 200; pts.push({ x, y: y(x) }); }
+  for (let i = 0; i <= 240; i++) { const x = xa + (xb - xa) * i / 240; pts.push({ x, y: y(x) }); }
   // shear at each joint => required friction
   let muMax = 0;
   const jchk = geo.joints.map(j => {
@@ -413,9 +468,9 @@ function thrustLine(geo, bm, loads, H, span) {
     if (isFinite(mu)) muMax = Math.max(muMax, mu);
     return { mu, V: Vv, N: fn };
   });
-  return { y, pts, c1: sol.c1, c2: sol.c2, muMax, jchk };
+  return { y, pts, endL, endR, c1: sol.c1, c2: sol.c2, muMax, jchk };
 }
-return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine};
+return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafety:geoSafety};
 })();
 
 (function(){
@@ -428,20 +483,29 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine};
     return e;
   }
   function clear(svg){ while (svg.firstChild) svg.removeChild(svg.firstChild); }
+  function dimf(v){                       /* whole numbers unless a decimal was entered */
+    if (!isFinite(v)) return '—';
+    var r = Math.round(v);
+    return Math.abs(v - r) < 1e-9 ? r.toLocaleString('en-US')
+      : v.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:3});
+  }
   function fmt(v, d){ if(!isFinite(v)) return '—';
     return v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
 
-  var state = { sol:null, inp:null };
+  var state = { sol:null, inp:null, token:0, timer:0 };
 
   function readInputs(){
     var type = $('ta-type').value;
     var span = +$('ta-span').value, t = +$('ta-t').value;
     var rise = type === 'semicircular' ? span/2 : +$('ta-rise').value;
-    if (type === 'pointed' && rise <= span/2 + 0.01) rise = span/2 + 0.01;
+    if (type === 'pointed' && Math.abs(rise - span/2) < 0.01) rise = span/2 + 0.01;
     return { type:type, span:span, rise:rise, t:t, depth:+$('ta-b').value,
-      gamma:+$('ta-g').value, gammaFill:+$('ta-gf').value, hFill:+$('ta-hf').value,
+      gamma:+$('ta-g').value, gammaFill:+$('ta-gf').value,
+      hFill:+$('ta-hf').value,
+      wLine:+$('ta-wl').value,
       nSeg:Math.max(4, Math.round(+$('ta-n').value/2)*2),
-      P:+$('ta-P').value, Px:+$('ta-Px').value };
+      P:+$('ta-P').value,
+      Px: Math.max(-span/2, Math.min(span/2, +$('ta-Px').value)) };
   }
 
   /* ---------------- form diagram ---------------- */
@@ -450,41 +514,59 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine};
     var pts = sol.geo.outExt.concat(sol.geo.outInt);
     var minX = 1e9, maxX = -1e9, maxY = -1e9;
     pts.forEach(function(p){ minX=Math.min(minX,p.x); maxX=Math.max(maxX,p.x); maxY=Math.max(maxY,p.y); });
+    if (tl){ minX=Math.min(minX,tl.pts[0].x); maxX=Math.max(maxX,tl.pts[tl.pts.length-1].x); }
     maxY = Math.max(maxY, inp.hFill);
-    var W = 800, dims = $('ta-dims').checked, pad = 56,
-        padR = dims ? 118 : 56, dimPad = dims ? 34 : 8;
+    var exMin = minX, exMax = maxX;                 /* extrados extent = loaded width */
+    var wallExt = Math.max(inp.t * 0.9, inp.span * 0.06);
+    if (inp.hFill > 0.01){ minX -= wallExt; maxX += wallExt; }
+    var W = 800, pad = 56, padR = 84, dimPad = 34;
     var sc = (W-pad-padR)/(maxX-minX);
     var Ht = (maxY)*sc + 2*pad + dimPad;
     svg.setAttribute('viewBox', '0 0 '+W+' '+Ht);
     var ox = pad + (-minX)*sc, oy = Ht - pad - dimPad*0.4;
     var X = function(x){ return ox + x*sc; }, Y = function(y){ return oy - y*sc; };
 
+    var defs = el('defs', {}, svg);
+    var mkR = el('marker', {id:'tcArrow', viewBox:'0 0 10 10', refX:'9.5', refY:'5',
+      markerWidth:'13', markerHeight:'13', markerUnits:'userSpaceOnUse',
+      orient:'auto-start-reverse'}, defs);
+    el('path', {d:'M0,0 L10,5 L0,10 z', fill:'var(--tc-accent)'}, mkR);
+    var mkD = el('marker', {id:'tcDim', viewBox:'0 0 10 10', refX:'9.5', refY:'5',
+      markerWidth:'9', markerHeight:'9', markerUnits:'userSpaceOnUse',
+      orient:'auto-start-reverse'}, defs);
+    el('path', {d:'M0,1.6 L10,5 L0,8.4 z', fill:'currentColor','fill-opacity':'.6'}, mkD);
+    var DIM = {stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.6',
+      'marker-start':'url(#tcDim)','marker-end':'url(#tcDim)'};
+
     var g = el('g', {fill:'none','stroke-linejoin':'round'}, svg);
 
     /* fill / spandrel */
     if (inp.hFill > 0.01){
-      var hf = inp.hFill, ex = sol.geo.outExt, run = [];
-      var flush = function(){
-        if (run.length > 1){
-          var d = 'M '+X(run[0].x)+' '+Y(hf);
-          run.forEach(function(p){ d += ' L '+X(p.x)+' '+Y(p.y); });
-          d += ' L '+X(run[run.length-1].x)+' '+Y(hf)+' Z';
-          el('path', {d:d, fill:'currentColor','fill-opacity':'.07', stroke:'none'}, g);
-        }
-        run = [];
-      };
-      for (var i = 0; i < ex.length; i++){
-        var p = ex[i], q = ex[i+1];
-        if (p.y <= hf) run.push(p);
-        if (q && ((p.y <= hf) !== (q.y <= hf))){
-          var w = (hf - p.y)/(q.y - p.y);
-          run.push({ x: p.x + (q.x-p.x)*w, y: hf });
-          flush();
-        }
-      }
-      flush();
+      var hf = inp.hFill;
+      /* wall from springing to spandrel level, with the opening under the intrados punched out */
+      var wall = 'M '+X(minX)+' '+Y(0)+' L '+X(maxX)+' '+Y(0)+' L '+X(maxX)+' '+Y(hf)
+               + ' L '+X(minX)+' '+Y(hf)+' Z';
+      var vd = '';
+      sol.geo.outInt.forEach(function(p,i){ vd += (i ? ' L ' : ' M ')+X(p.x)+' '+Y(p.y); });
+      el('path', {d:wall+vd+' Z', 'fill-rule':'evenodd', fill:'currentColor',
+        'fill-opacity':'.07', stroke:'none'}, g);
+      el('line', {x1:X(minX),y1:Y(0),x2:X(minX),y2:Y(hf),
+        stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.3'}, g);
+      el('line', {x1:X(maxX),y1:Y(0),x2:X(maxX),y2:Y(hf),
+        stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.3'}, g);
       el('line', {x1:X(minX),y1:Y(hf),x2:X(maxX),y2:Y(hf),
         stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.4'}, g);
+      if (inp.wLine > 0){
+        var nq = 11;
+        for (var q = 0; q < nq; q++){
+          var xq = minX + (maxX-minX)*q/(nq-1);
+          el('line',{x1:X(xq),y1:Y(hf)-13,x2:X(xq),y2:Y(hf)-2,
+            stroke:'var(--tc-accent)','stroke-width':'1','stroke-opacity':'.8'}, g);
+        }
+        el('line',{x1:X(minX),y1:Y(hf)-13,x2:X(maxX),y2:Y(hf)-13,
+          stroke:'var(--tc-accent)','stroke-width':'1.2'}, g);
+        txt(svg, X(maxX)+6, Y(hf)-13, dimf(inp.wLine)+' plf', 'start');
+      }
     }
     /* ring */
     var dr = 'M '+X(sol.geo.outInt[0].x)+' '+Y(sol.geo.outInt[0].y);
@@ -502,6 +584,19 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine};
     el('line', {x1:X(minX)-14,y1:Y(0),x2:X(maxX)+14,y2:Y(0),
       stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.5','stroke-dasharray':'6 4'}, g);
 
+    /* point load */
+    if (inp.P > 0){
+      var xp = Math.max(-inp.span/2, Math.min(inp.span/2, inp.Px));
+      var ys = 0, ex2 = sol.geo.outExt;
+      for (var q2 = 0; q2 < ex2.length; q2++)
+        if (Math.abs(ex2[q2].x - xp) < Math.abs(inp.span)/200 + 1e-9) ys = Math.max(ys, ex2[q2].y);
+      if (ys === 0) ys = inp.rise + inp.t;
+      var ysurf = Math.max(ys, inp.hFill);
+      el('line', {x1:X(xp), y1:Y(ysurf)-58, x2:X(xp), y2:Y(ysurf)-3,
+        stroke:'var(--tc-accent)','stroke-width':'2','marker-end':'url(#tcArrow)'}, g);
+      txt(svg, X(xp)+7, Y(ysurf)-46, fmt(inp.P,0)+' lb', 'start');
+    }
+
     /* thrust line */
     if (tl){
       var dt = '';
@@ -510,41 +605,52 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine};
       /* reactions */
       var RL = sol.beam.RL, RR = sol.beam.RR;
       var aL = Math.atan2(RL, H), aR = Math.atan2(RR, H);
-      var Lm = 46;
-      var yL = tl.y(-inp.span/2), yR = tl.y(inp.span/2);
-      el('line', {x1:X(-inp.span/2)-Lm*Math.cos(aL), y1:Y(yL)-Lm*Math.sin(aL)*-1,
-        x2:X(-inp.span/2), y2:Y(yL), stroke:'var(--tc-accent)','stroke-width':'1.4',
+      var Lm = 66;
+      var eL = tl.endL, eR = tl.endR;
+      el('line', {x1:X(eL.x)-Lm*Math.cos(aL), y1:Y(eL.y)+Lm*Math.sin(aL),
+        x2:X(eL.x), y2:Y(eL.y), stroke:'var(--tc-accent)','stroke-width':'2',
         'marker-end':'url(#tcArrow)'}, g);
-      el('line', {x1:X(inp.span/2)+Lm*Math.cos(aR), y1:Y(yR)-Lm*Math.sin(aR)*-1,
-        x2:X(inp.span/2), y2:Y(yR), stroke:'var(--tc-accent)','stroke-width':'1.4',
+      el('line', {x1:X(eR.x)+Lm*Math.cos(aR), y1:Y(eR.y)+Lm*Math.sin(aR),
+        x2:X(eR.x), y2:Y(eR.y), stroke:'var(--tc-accent)','stroke-width':'2',
         'marker-end':'url(#tcArrow)'}, g);
-      var defs = el('defs', {}, svg);
-      var mk = el('marker', {id:'tcArrow', viewBox:'0 0 10 10', refX:'9', refY:'5',
-        markerWidth:'6', markerHeight:'6', orient:'auto-start-reverse'}, defs);
-      el('path', {d:'M0,0 L10,5 L0,10 z', fill:'var(--tc-accent)'}, mk);
     }
 
     /* dimensions */
-    if ($('ta-dims').checked){
+    {
       var yd = oy + 22;
       el('line', {x1:X(-inp.span/2),y1:yd,x2:X(inp.span/2),y2:yd,
-        stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.6'}, g);
+        stroke:DIM.stroke,'stroke-width':DIM['stroke-width'],'stroke-opacity':DIM['stroke-opacity'],
+        'marker-start':DIM['marker-start'],'marker-end':DIM['marker-end']}, g);
       [-inp.span/2, inp.span/2].forEach(function(x){
-        el('line', {x1:X(x),y1:yd-5,x2:X(x),y2:yd+5,stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.6'}, g);
+        el('line', {x1:X(x),y1:Y(0),x2:X(x),y2:yd+6,stroke:'currentColor',
+          'stroke-width':'.6','stroke-opacity':'.35'}, g);
       });
-      txt(svg, ox, yd+15, fmt(inp.span,1)+' in clear span', 'middle');
-      var xr = X(maxX)+22;
-      el('line', {x1:xr,y1:Y(0),x2:xr,y2:Y(inp.rise),stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.6'}, g);
-      [0, inp.rise].forEach(function(y){
-        el('line', {x1:xr-5,y1:Y(y),x2:xr+5,y2:Y(y),stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.6'}, g);
-      });
-      txt(svg, xr+8, Y(inp.rise/2)+4, fmt(inp.rise,1)+' in rise', 'start');
-      txt(svg, X(0), Y(inp.rise+inp.t)-10, 't = '+fmt(inp.t,2)+' in', 'middle');
+      txt(svg, ox, yd+15, dimf(inp.span)+'\u2033 clear span', 'middle');
+      /* rise: on the centreline, springing up to the intrados crown */
+      var xc = X(0);
+      el('line', {x1:xc,y1:Y(0),x2:xc,y2:Y(inp.rise),
+        stroke:DIM.stroke,'stroke-width':DIM['stroke-width'],'stroke-opacity':DIM['stroke-opacity'],
+        'marker-start':DIM['marker-start'],'marker-end':DIM['marker-end']}, g);
+      txt(svg, xc+8, Y(inp.rise/2)+4, dimf(inp.rise)+'\u2033 rise', 'start');
+
+      /* thickness: measured across the ring on a radial cut a third of the way up
+         from the left springing */
+      var k = Math.round((sol.geo.outInt.length-1)/4);
+      var Pi = {x:X(sol.geo.outInt[k].x), y:Y(sol.geo.outInt[k].y)},
+          Pe = {x:X(sol.geo.outExt[k].x), y:Y(sol.geo.outExt[k].y)};
+      var ux = Pe.x-Pi.x, uy = Pe.y-Pi.y, ul = Math.hypot(ux,uy) || 1; ux/=ul; uy/=ul;
+      el('line', {x1:Pi.x,y1:Pi.y,x2:Pe.x,y2:Pe.y,
+        stroke:DIM.stroke,'stroke-width':DIM['stroke-width'],'stroke-opacity':DIM['stroke-opacity'],
+        'marker-start':DIM['marker-start'],'marker-end':DIM['marker-end']}, g);
+      var B = {x:Pe.x+ux*22, y:Pe.y+uy*22};
+      el('line', {x1:Pe.x,y1:Pe.y,x2:B.x,y2:B.y,
+        stroke:'currentColor','stroke-width':'.6','stroke-opacity':'.35'}, g);
+      txt(svg, B.x+ux*4, B.y+uy*4+4, 't = '+dimf(inp.t)+'\u2033', ux < 0 ? 'end' : 'start');
     }
   }
-  function txt(svg, x, y, s, anchor){
+  function txt(svg, x, y, s, anchor, size){
     var e = el('text', {x:x, y:y, 'text-anchor':anchor||'start', fill:'currentColor',
-      'font-size':'12', 'fill-opacity':'.75'}, svg);
+      'font-size':size||'12', 'fill-opacity':'.75'}, svg);
     e.textContent = s; return e;
   }
 
@@ -554,12 +660,20 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine};
     var vs = sol.vous.filter(function(v){ return v.W > 0; });
     var Wt = sol.beam.Wt;
     if (!Wt){ return; }
-    var pad = 46;
-    var fs = Math.min(320/Wt, 320/Math.max(H,1e-9));   // px per lb, equal in x and y
-    var pw = H*fs, Hs = Wt*fs + 2*pad + 30, W = 108 + pw + 210;
-    svg.setAttribute('viewBox','0 0 '+W+' '+Hs);
-    var px = 108, lx = px + pw;
-    var top = pad, py = top + sol.beam.RL*fs;
+    /* constant frame: the load line and its top end stay put, so the fan only
+       grows downward and to the left and the labels keep one size */
+    var VW = 420, VH = 640;
+    svg.setAttribute('viewBox','0 0 '+VW+' '+VH);
+    var lx = VW - 104, top = 34;
+    /* the force scale is quantised to 1-2-5 steps, so it holds still while inputs
+       change and only steps when the construction would no longer fit */
+    var need = Math.max(Wt/(VH - top - 92), H/(lx - 66), 1e-9);
+    var dec = Math.pow(10, Math.floor(Math.log(need)/Math.LN10));
+    var mant = need/dec;
+    var unit = (mant <= 1 ? 1 : mant <= 2 ? 2 : mant <= 5 ? 5 : 10) * dec;  /* lb per unit */
+    var fs = 1/unit;
+    var px = lx - H*fs;
+    var py = top + sol.beam.RL*fs;
     var g = el('g', {fill:'none'}, svg);
 
     /* load line */
@@ -576,15 +690,26 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine};
     el('circle',{cx:px,cy:py,r:3,fill:'var(--tc-accent)',stroke:'none'},g);
     el('line',{x1:px,y1:py,x2:lx,y2:py,stroke:'currentColor','stroke-width':'.8',
       'stroke-opacity':'.5','stroke-dasharray':'5 4'},g);
-    txt(svg, px-8, py+4, 'pole O', 'end');
+    txt(svg, px-6, py+4, 'pole O', 'end', '10.5');
     var yd = top + Wt*fs + 24;
-    el('line',{x1:px,y1:yd,x2:lx,y2:yd,stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.6'},g);
-    [px,lx].forEach(function(x){ el('line',{x1:x,y1:yd-4,x2:x,y2:yd+4,
-      stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.6'},g); });
-    txt(svg, (px+lx)/2, yd+15, 'H = '+fmt(H,0)+' lb', 'middle');
-    txt(svg, lx+10, top-6, 'load line, ΣW to scale');
-    txt(svg, lx+10, top+Wt*fs+4, 'ΣW = '+fmt(Wt,0)+' lb');
-    txt(svg, lx+10, py+4, 'R = '+fmt(sol.beam.RL,0)+' lb (left)');
+    var dfs = el('defs',{},svg);
+    var mkP = el('marker',{id:'tcDimP',viewBox:'0 0 10 10',refX:'9.5',refY:'5',
+      markerWidth:'8',markerHeight:'8',markerUnits:'userSpaceOnUse',
+      orient:'auto-start-reverse'},dfs);
+    el('path',{d:'M0,1.6 L10,5 L0,8.4 z',fill:'currentColor','fill-opacity':'.6'},mkP);
+    el('line',{x1:px,y1:yd,x2:lx,y2:yd,stroke:'currentColor','stroke-width':'.8',
+      'stroke-opacity':'.6','marker-start':'url(#tcDimP)','marker-end':'url(#tcDimP)'},g);
+    txt(svg, (px+lx)/2, yd+14, 'H '+fmt(H,0)+' lb', 'middle', '10.5');
+
+    var sbY = VH - 20, sbL = 100, sbX = 40;      /* scale bar, 100 units long */
+    el('line',{x1:sbX,y1:sbY,x2:sbX+sbL,y2:sbY,stroke:'currentColor','stroke-width':'1.4',
+      'stroke-opacity':'.6'},g);
+    [sbX, sbX+sbL].forEach(function(x){ el('line',{x1:x,y1:sbY-4,x2:x,y2:sbY+4,
+      stroke:'currentColor','stroke-width':'1','stroke-opacity':'.6'},g); });
+    txt(svg, sbX+sbL+8, sbY+4, fmt(unit*sbL,0)+' lb', 'start', '10.5');
+    txt(svg, lx+8, top-7, 'load line', 'start', '10.5');
+    txt(svg, lx+8, top+Wt*fs+4, 'ΣW '+fmt(Wt,0)+' lb', 'start', '10.5');
+    txt(svg, lx+8, py+4, 'R '+fmt(sol.beam.RL,0)+' lb', 'start', '10.5');
   }
 
   /* ---------------- results ---------------- */
@@ -593,7 +718,8 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine};
     $('ta-riserow').style.display = inp.type === 'semicircular' ? 'none' : 'flex';
     var sol;
     try { sol = ArchCore.solve(inp); }
-    catch(e){ $('ta-note').textContent = 'Geometry could not be built: '+e.message; return; }
+    catch(e){ $('ta-out').innerHTML = '<tr><td colspan="3" class="tc-flag">Geometry could not be built: '
+      + e.message + '</td></tr>'; return; }
     state.sol = sol; state.inp = inp;
     var sl = $('ta-H');
     if (sol.range){
@@ -609,6 +735,17 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine};
       $('ta-Hhi').textContent = '';
     }
     update();
+
+    /* the factor of safety is the expensive part: compute it after the drawing is up */
+    if (sol.range && sol.gfos === undefined){
+      var token = ++state.token;
+      setTimeout(function(){
+        if (token !== state.token || state.sol !== sol) return;
+        sol.gfos = ArchCore.geoSafety(sol.geo, inp.t, sol.beam.M,
+          (sol.range.Hmin + sol.range.Hmax) / 2, inp.span);
+        if (state.sol === sol) update();
+      }, 30);
+    }
   }
 
   function update(){
@@ -617,54 +754,159 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine};
     var out = $('ta-out'), rows = [];
     if (!sol.range){
       drawForm(sol, inp, 0, null); clear($('ta-poly-svg'));
-      out.innerHTML = '<tr><td colspan="2" class="tc-flag">No line of thrust fits within this ring under its own weight. The arch is below its limiting thickness for this geometry; thicken the ring, add fill over the haunches, or lower the rise.</td></tr>';
-      $('ta-note').textContent = '';
+      out.innerHTML = '<tr><td colspan="3" class="tc-flag">No line of thrust fits within this arch under its own weight. It is below the limiting thickness for this geometry; thicken the arch, raise the spandrel, or lower the rise.</td></tr>';
       return;
     }
     var f = +$('ta-H').value/1000;
     var H = sol.range.Hmin + f*(sol.range.Hmax - sol.range.Hmin);
     var tl = ArchCore.thrustLine(sol.geo, sol.beam, sol.loads, H, inp.span);
     drawForm(sol, inp, H, tl);
-    $('ta-figpoly').style.display = $('ta-poly').checked ? '' : 'none';
-    if ($('ta-poly').checked) drawPolygon(sol, inp, H);
+    drawPolygon(sol, inp, H);
 
     var RL = sol.beam.RL, RR = sol.beam.RR;
     var Rmag = Math.hypot(H, RL), Rang = Math.atan2(RL, H)*180/Math.PI;
-    rows.push(['Total weight carried, ΣW', fmt(sol.beam.Wt,0)+' lb']);
-    rows.push(['Horizontal thrust, H', fmt(H,0)+' lb']);
-    rows.push(['H min / H max', fmt(sol.range.Hmin,0)+' / '+fmt(sol.range.Hmax,0)+' lb']);
-    rows.push(['H / ΣW', fmt(H/sol.beam.Wt,3)]);
-    rows.push(['Abutment reaction', fmt(Rmag,0)+' lb at '+fmt(Rang,1)+'° from horizontal']);
-    rows.push(['Vertical reaction, each', fmt(RL,0)+' / '+fmt(RR,0)+' lb']);
-    rows.push(['Geometric factor of safety', sol.gfos ? fmt(sol.gfos,2) : '—']);
-    rows.push(['Least ring thickness for stability', sol.gfos ? fmt(inp.t/sol.gfos,2)+' in' : '—']);
-    rows.push(['Friction demand at joints, max μ', tl ? fmt(tl.muMax,3) : '—']);
+    var mu = tl ? tl.muMax : NaN;
+    rows.push(['Total weight carried, ΣW', fmt(sol.beam.Wt,0)+' lb',
+      'Arch, spandrel, and any applied loads']);
+    rows.push(['Horizontal thrust, H', fmt(H,0)+' lb', 'Adjusted by slider']);
+    rows.push(['H min / H max', fmt(sol.range.Hmin,0)+' / '+fmt(sol.range.Hmax,0)+' lb',
+      'Minimum and maximum range over which a thrust line stays entirely inside the arch',
+      'tc-bold']);
+    rows.push(['H / ΣW', fmt(H/sol.beam.Wt,3), 'Thrust as a fraction of weight carried']);
+    rows.push(['Abutment reaction', fmt(Rmag,0)+' lb at '+fmt(Rang,1)+'°',
+      'Resultant at springing, measured from horizontal']);
+    rows.push(['Vertical reaction, each', fmt(RL,0)+' / '+fmt(RR,0)+' lb', 'Left / right']);
+    rows.push(['Geometric factor of safety',
+      sol.gfos ? fmt(sol.gfos,2) : 'computing…',
+      sol.gfos ? (sol.gfos < 3
+        ? 'Below 3, the recommended minimum factor of safety'
+        : 'Exceeds 3, the recommended minimum factor of safety')
+        : 'Ratio of the arch thickness to the least thickness that still admits a thrust line',
+      sol.gfos ? 'tc-gfos ' + (sol.gfos < 3 ? 'low' : 'ok') : '']);
+    rows.push(['Least arch thickness for stability',
+      sol.gfos ? dimf(Math.round(inp.t/sol.gfos*100)/100)+'\u2033' : '—',
+      'Arch thickness at which only one thrust line is possible']);
+    rows.push(['Friction demand at joints, max μ', isFinite(mu) ? fmt(mu,3) : '—',
+      !isFinite(mu) ? '' : (mu > 0.6
+        ? 'Exceeds 0.6, the coefficient of friction typically available at masonry joints'
+        : 'Below 0.6, the coefficient of friction typically available at masonry joints'),
+      isFinite(mu) ? 'tc-gfos ' + (mu > 0.6 ? 'low' : 'ok') : '']);
     out.innerHTML = rows.map(function(r){
-      return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'; }).join('');
+      return '<tr'+(r[3] ? ' class="'+r[3]+'"' : '')+'><td>'+r[0]+'</td><td>'+r[1]
+        +'</td><td class="tc-say">'+(r[2]||'')+'</td></tr>';
+    }).join('');
 
-    var notes = [];
-    if (tl && tl.muMax > 0.6) notes.push('Friction demand exceeds μ = 0.6; check sliding at the joints where the thrust line is steepest relative to the joint face.');
-    if (sol.gfos && sol.gfos < 2) notes.push('Geometric factor of safety below 2. Heyman suggested a value of about 2 as a working minimum for masonry arches.');
-    notes.push('Zero tensile strength, infinite compressive strength, and no sliding are assumed (Heyman 1966, 1982). Compressive stress at the joints is not checked here.');
-    $('ta-note').innerHTML = notes.join(' ');
+
   }
 
-  ['ta-type','ta-span','ta-rise','ta-t','ta-b','ta-n','ta-g','ta-hf','ta-gf','ta-P','ta-Px']
-    .forEach(function(id){ $(id).addEventListener('change', render); });
+  var FIELDS = ['ta-type','ta-span','ta-rise','ta-t','ta-b','ta-n','ta-g','ta-hf','ta-gf',
+                'ta-wl','ta-P','ta-Px'];
+  function queue(){ clearTimeout(state.timer); state.timer = setTimeout(render, 90); }
+  FIELDS.forEach(function(id){ $(id).addEventListener('change', queue); });
   $('ta-H').addEventListener('input', update);
-  ['ta-poly','ta-dims'].forEach(function(id){ $(id).addEventListener('change', update); });
+
+  /* click into a number field, then scroll to step it up and down */
+  Array.prototype.forEach.call(document.querySelectorAll('#tcArch input[type=number]'), function(f){
+    f.addEventListener('wheel', function(e){
+      if (document.activeElement !== f) return;      /* only when the field has focus */
+      e.preventDefault();
+      var st = parseFloat(f.step) || 1;
+      var lo = f.min === '' ? -Infinity : parseFloat(f.min);
+      var hi = f.max === '' ?  Infinity : parseFloat(f.max);
+      var v = (parseFloat(f.value) || 0) + (e.deltaY < 0 ? st : -st);
+      v = Math.min(hi, Math.max(lo, Math.round(v / st) * st));
+      f.value = parseFloat(v.toFixed(6));
+      f.dispatchEvent(new Event('change', {bubbles:true}));
+    }, {passive:false});
+  });
+  /* defaults captured once the page has settled, so Reset returns here */
+  var DEF = {};
+  FIELDS.forEach(function(id){ DEF[id] = $(id).value; });
+  var GROUP = {
+    'ta-reset-arch':  ['ta-type','ta-span','ta-rise','ta-t','ta-b','ta-n'],
+    'ta-reset-loads': ['ta-g','ta-hf','ta-gf','ta-wl','ta-P','ta-Px']
+  };
+  Object.keys(GROUP).forEach(function(bid){
+    $(bid).addEventListener('click', function(){
+      GROUP[bid].forEach(function(id){ $(id).value = DEF[id]; });
+      render();
+    });
+  });
+
   render();
 })();
 </script>
 </div>
 <!-- ====================== EMBED END ====================== -->
 
-<p class="foot">Published for preliminary sizing and instruction. Not a substitute for
-engineering judgment, project-specific analysis, or a sealed design; no engineer&ndash;client
-relationship arises from use of this page. Results depend entirely on the values entered,
-including material strengths, which must come from test data for the material actually used.
-Verify all output independently before relying on it.
-<br><br>Will McCartney, PE &mdash; <a href="https://mccartneyeng.com">mccartneyeng.com</a></p>
 </div>
+<p class="foot"><strong>Use and liability:</strong> While I believe these tools to be free of
+error, I cannot be held liable for their results. They are to be used for
+instruction and should not be used to design a building or its components. There almost certainly are
+assumptions made for this tool that do not apply to your scenario.
+If you do something interesting with one of my tools, please tell me about it!</p>
+<p class="foot foot-sig">Will McCartney, PE &mdash; <a href="https://mccartneyeng.com/#otherprojects">mccartneyeng.com</a></p>
+</div>
+<style>
+  .tcalc select,.tcalc select option,.tcalc input[type=number],.tcalc .tc-calcval{
+    font-family:var(--sans);font-weight:600;}
+  .tcalc .tc-calcval{display:inline-block;width:5.6rem;text-align:right;
+    font-size:.92em;padding:.22rem .35rem;opacity:.75;}
+  .tcalc .tc-cap,.tcalc .tc-note,details.about p{font-family:var(--serif);}
+  h1{font-variant:small-caps;letter-spacing:.03em;font-size:1.6rem;
+    justify-self:center;text-align:center;}
+  .hdr{display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline;}
+  .back{justify-self:start;}
+  details.about{justify-self:end;margin-left:0;text-align:left;}
+  .back{font-family:var(--serif);font-variant:small-caps;font-weight:400;
+    font-size:.9rem;letter-spacing:.03em;}
+  .tcalc tr.tc-gfos td,.tcalc tr.tc-bold td{font-weight:600;}
+  .tcalc .tc-results td.tc-flag{font-family:var(--sans);font-weight:600;font-size:1.25rem;
+    line-height:1.4;text-align:center;width:auto;white-space:normal;padding:1.6rem 2rem;
+    color:var(--tc-accent);opacity:1;}
+  .tcalc .tc-results td:nth-child(1){width:16rem;}
+  .tcalc .tc-results td:nth-child(2){text-align:right;white-space:nowrap;width:11rem;
+    padding-right:1.6rem;}
+  .tcalc .tc-results td.tc-say{text-align:left;white-space:normal;opacity:.6;
+    font-size:.92em;line-height:1.35;}
+  .tcalc .tc-reset{margin:.55rem 0 .1rem;}
+  .tcalc .tc-reset button{font:inherit;font-family:var(--sans);font-size:.78em;
+    color:inherit;background:none;border:0;border-bottom:1px solid var(--tc-rule);
+    padding:0 0 1px;cursor:pointer;opacity:.6;}
+  .tcalc .tc-reset button:hover{opacity:1;}
+  .tcalc tr.tc-gfos.ok td{color:#2f6b4a;}
+  .tcalc tr.tc-gfos.low td{color:var(--tc-accent);}
+  /* ---- one-screen layout ---- */
+
+  .tcalc{height:100%;}
+  .tcalc .tc-grid{display:grid;gap:1.1rem;height:100%;min-height:0;
+    grid-template-columns:1fr;}
+  .tcalc .tc-col{min-height:0;display:flex;flex-direction:column;}
+  .tcalc .tc-inputs{overflow-y:auto;padding-right:.5rem;}
+  .tcalc .tc-fig{margin:0;display:flex;flex-direction:column;min-height:0;}
+  .tcalc .tc-fig svg{width:100%;height:100%;min-height:0;flex:1 1 auto;display:block;overflow:hidden;}
+  .tcalc .tc-cap{margin:.3rem 0 0;font-size:.68rem;opacity:.6;flex:0 0 auto;line-height:1.35;}
+  .tcalc fieldset{margin-bottom:.8rem;padding-top:.5rem;}
+  .tcalc .tc-row{margin:.22rem 0;}
+  .tcalc table{margin-top:.5rem;}
+  .tcalc .tc-note{margin:.5rem 0 0;font-size:.68rem;}
+  @media (min-width:1040px){
+    .tcalc .tc-grid{grid-template-columns:16.5rem minmax(0,1fr) 20rem;
+      grid-template-rows:minmax(0,1fr) auto;column-gap:1.4rem;row-gap:.8rem;}
+    .tcalc .tc-inputs{grid-column:1;grid-row:1 / span 2;}
+    .tcalc .tc-stage{grid-column:2;grid-row:1;}
+    .tcalc .tc-side{grid-column:3;grid-row:1;overflow:hidden;}
+    .tcalc .tc-results{grid-column:2 / span 2;grid-row:2;max-height:38vh;overflow-y:auto;
+      padding-top:.5rem;border-top:1px solid var(--tc-rule);}
+    .tcalc .tc-fig{flex:1 1 auto;min-height:0;}
+  }
+  @media (max-width:1039px){
+    html,body{height:auto;}
+    .page{height:auto;}
+    .tcalc .tc-fig svg{height:auto;flex:0 0 auto;}
+    .tcalc .tc-col{overflow:visible;}
+    details.about{margin-left:0;}
+  }
+</style>
 </body>
 </html>
