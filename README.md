@@ -1,51 +1,8 @@
 # Web calculators — Will McCartney, PE
-
-Two self-contained HTML files. No libraries, no build step, no external requests,
-no data leaves the browser. Open either file directly in a browser to test.
-
 - `arch-thrust-line.html` — thrust-line limit analysis of a masonry arch by graphic statics
 - `stone-lintel-sizer.html` — allowable-stress check of a plain stone lintel
 
 ---
-
-## Publishing
-
-These pages are hosted as standalone files, not embedded in Carrd.
-
-**Why not embedded.** Carrd inserts embed code into the published page as markup after
-load. A `<script>` element added that way is parsed into the DOM but never executed — normal
-browser behaviour, not a Carrd defect. Confirmed on the live site: the markup rendered, the
-script element was present (`document.scripts` count of 1), and `data-booted` stayed `null`
-with no console error, which rules out a Content Security Policy. Inline placement, Hidden
-Body End placement, and a self-mounting loader using an `onload` attribute were all tried;
-Carrd strips inline event-handler attributes as well.
-
-**GitHub Pages.** Upload both HTML files to a public repository, then Settings → Pages →
-Deploy from a branch → main → / (root). URLs follow the pattern:
-
-    https://USERNAME.github.io/REPO/arch-thrust-line.html
-    https://USERNAME.github.io/REPO/stone-lintel-sizer.html
-
-Edit later through the pencil icon on the file view; the live page updates in about a
-minute. Hard-reload with Ctrl+Shift+R, as the CDN caches.
-
-**Linking from Carrd.** Add ordinary text links under Other Projects. Each tool opens as its
-own page carrying the site palette and type, so it reads as part of the site, and each has a
-URL that can be sent to a client or cited in a report. An `<iframe>` in an Inline Code embed
-also works, since it is plain markup with nothing executable in it.
-
-## Palette and type
-
-Set at the top of each file:
-
-    --tan:#D8D6CF        page ground
-    --navy:#465172       text and rules
-    --serif:"Libre Baskerville"    prose, headings, verdict line
-    --sans:"Libre Franklin"        controls, tables, drawing labels
-
-Fonts load from Google Fonts. The one colour outside this palette is `--tc-accent`
-(`#9b2d20`), declared inside the calculator block and used for thrust lines, load triangles,
-and moment diagrams — the traditional red of thrust-line plates.
 
 ## Arch thrust line — method
 
