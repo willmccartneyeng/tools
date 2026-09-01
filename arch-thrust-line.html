@@ -109,7 +109,7 @@ arch&rsquo;s own span is carried by the arch; the rest bears directly on the abu
       <div class="tc-row"><label for="ta-b">Depth into page</label><input type="number" id="ta-b" value="12" step="1" min="1"><span class="u">in</span></div>
       <div class="tc-row"><label for="ta-n">Voussoirs</label><input type="number" id="ta-n" value="12" step="2" min="4" max="60"><span class="u">—</span></div>
       <div class="tc-row"><label for="ta-mu">Joint friction, μ</label><input type="number" id="ta-mu" value="0.6" step=".05" min=".05" max="2"><span class="u">—</span></div>
-      <div class="tc-row"><label for="ta-fa" title="Enter 0 to skip the compression check">Allowable compression</label><input type="number" id="ta-fa" value="150" step="10" min="0"><span class="u">psi</span></div>
+      <div class="tc-row"><label for="ta-fa" title="Enter 0 to skip the compression check">Allowable compression</label><input type="number" id="ta-fa" value="1500" step="50" min="0"><span class="u">psi</span></div>
       <div class="tc-reset"><button type="button" id="ta-reset-arch">Reset arch</button></div>
     </fieldset>
 
@@ -1169,9 +1169,8 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
         crit.ratio > 0.999
           ? 'Every voussoir joint bears on its full bed, the thrust line is entirely within '
             + 'the middle third of the arch\u2019s thickness'
-          : 'Narrowest bearing at a voussoir joint is marked on the graphic; assuming no bed '
-            + 'joint tension capacity, a crack will develop along '
-            + fmt(100 - crit.ratio*100, 0) + '% of the joint bed',
+          : 'Location is marked on the graphic; assuming no bed joint tension capacity, '
+            + 'a crack will develop along ' + fmt(100 - crit.ratio*100, 0) + '% of the joint bed',
         '']);
     }
     out.innerHTML = rows.map(function(r){
