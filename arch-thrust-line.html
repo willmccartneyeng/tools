@@ -64,7 +64,7 @@ arch&rsquo;s own span is carried by the arch; the rest bears directly on the abu
 <!-- ===================== EMBED START ===================== -->
 <div class="tcalc" id="tcArch">
 <style>
-.tcalc{--tc-accent:#9b2d20;--tc-rule:rgba(0,0,0,.22);--tc-soft:rgba(0,0,0,.06);
+.tcalc{--tc-accent:#9b2d20;--tc-rule:rgba(70,81,114,.24);--tc-soft:rgba(70,81,114,.08);
   --tc-rule:color-mix(in srgb, currentColor 22%, transparent);
   --tc-soft:color-mix(in srgb, currentColor 7%, transparent);
   color:inherit;font:inherit;font-variant-numeric:tabular-nums;
@@ -134,8 +134,8 @@ arch&rsquo;s own span is carried by the arch; the rest bears directly on the abu
       <input type="range" id="ta-H" min="0" max="1000" value="500" hidden>
       <div class="tc-stops up" id="ta-stops-up"></div>
       <div class="tc-track" id="ta-track">
-        <div class="tc-track-ok" id="ta-band"></div>
-        <div class="tc-track-kern" id="ta-kern"></div>
+        <div class="tc-bandwrap ok" id="ta-band"></div>
+        <div class="tc-bandwrap kern" id="ta-kern"></div>
         <div class="tc-now" id="ta-now"></div>
       </div>
       <div class="tc-stops dn" id="ta-stops"></div>
@@ -700,7 +700,7 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
     var mkD = el('marker', {id:'tcDim', viewBox:'0 0 10 10', refX:'9.5', refY:'5',
       markerWidth:'9', markerHeight:'9', markerUnits:'userSpaceOnUse',
       orient:'auto-start-reverse'}, defs);
-    el('path', {d:'M0,1.6 L10,5 L0,8.4 z', fill:'currentColor','fill-opacity':'.6'}, mkD);
+    el('path', {d:'M0,1.6 L10,5 L0,8.4 z', fill:'currentColor'}, mkD);
     var DIM = {stroke:'currentColor','stroke-width':'.8','stroke-opacity':'.6',
       'marker-start':'url(#tcDim)','marker-end':'url(#tcDim)'};
 
@@ -803,26 +803,23 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
       var P0 = { x: far2.x + ux2*crit.c, y: far2.y + uy2*crit.c };
       el('line', {x1:X(P0.x),y1:Y(P0.y),x2:X(far2.x),y2:Y(far2.y),
         stroke:'var(--tc-accent)','stroke-width':'5','stroke-opacity':'.85'}, g);
-      var dxl = (far2.x-near2.x)/crit.t, dyl = (far2.y-near2.y)/crit.t;
-      var lx2 = far2.x + dxl*inp.t*0.75, ly2 = far2.y + dyl*inp.t*0.75;
-      txt(svg, X(lx2), Y(ly2)+4, 'bearing '+fmt(crit.c,1)+'\u2033', dxl < 0 ? 'end' : 'start');
     }
 
     /* dimensions */
     {
       var yd = oy + 22;
       el('line', {x1:X(-inp.span/2),y1:yd,x2:X(inp.span/2),y2:yd,
-        stroke:DIM.stroke,'stroke-width':DIM['stroke-width'],'stroke-opacity':DIM['stroke-opacity'],
+        stroke:DIM.stroke,'stroke-width':DIM['stroke-width'],'stroke-opacity':'.85',
         'marker-start':DIM['marker-start'],'marker-end':DIM['marker-end']}, g);
       [-inp.span/2, inp.span/2].forEach(function(x){
         el('line', {x1:X(x),y1:Y(0),x2:X(x),y2:yd+6,stroke:'currentColor',
-          'stroke-width':'.6','stroke-opacity':'.35'}, g);
+          'stroke-width':'.6','stroke-opacity':'.5'}, g);
       });
       txt(svg, ox, yd+15, dimf(inp.span)+'\u2033 clear span', 'middle');
       /* rise: on the centreline, springing up to the intrados crown */
       var xc = X(0);
       el('line', {x1:xc,y1:Y(0),x2:xc,y2:Y(inp.rise),
-        stroke:DIM.stroke,'stroke-width':DIM['stroke-width'],'stroke-opacity':DIM['stroke-opacity'],
+        stroke:DIM.stroke,'stroke-width':DIM['stroke-width'],'stroke-opacity':'.85',
         'marker-start':DIM['marker-start'],'marker-end':DIM['marker-end']}, g);
       txt(svg, xc+8, Y(inp.rise/2)+4, dimf(inp.rise)+'\u2033 rise', 'start');
 
@@ -833,11 +830,11 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
           Pe = {x:X(sol.geo.outExt[k].x), y:Y(sol.geo.outExt[k].y)};
       var ux = Pe.x-Pi.x, uy = Pe.y-Pi.y, ul = Math.hypot(ux,uy) || 1; ux/=ul; uy/=ul;
       el('line', {x1:Pi.x,y1:Pi.y,x2:Pe.x,y2:Pe.y,
-        stroke:DIM.stroke,'stroke-width':DIM['stroke-width'],'stroke-opacity':DIM['stroke-opacity'],
+        stroke:DIM.stroke,'stroke-width':DIM['stroke-width'],'stroke-opacity':'.85',
         'marker-start':DIM['marker-start'],'marker-end':DIM['marker-end']}, g);
       var B = {x:Pe.x+ux*22, y:Pe.y+uy*22};
       el('line', {x1:Pe.x,y1:Pe.y,x2:B.x,y2:B.y,
-        stroke:'currentColor','stroke-width':'.6','stroke-opacity':'.35'}, g);
+        stroke:'currentColor','stroke-width':'.6','stroke-opacity':'.5'}, g);
       txt(svg, B.x+ux*4, B.y+uy*4+4, 't = '+dimf(inp.t)+'\u2033', ux < 0 ? 'end' : 'start');
     }
   }
@@ -889,9 +886,9 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
     var mkP = el('marker',{id:'tcDimP',viewBox:'0 0 10 10',refX:'9.5',refY:'5',
       markerWidth:'8',markerHeight:'8',markerUnits:'userSpaceOnUse',
       orient:'auto-start-reverse'},dfs);
-    el('path',{d:'M0,1.6 L10,5 L0,8.4 z',fill:'currentColor','fill-opacity':'.6'},mkP);
+    el('path',{d:'M0,1.6 L10,5 L0,8.4 z',fill:'currentColor'},mkP);
     el('line',{x1:px,y1:yd,x2:lx,y2:yd,stroke:'currentColor','stroke-width':'.8',
-      'stroke-opacity':'.6','marker-start':'url(#tcDimP)','marker-end':'url(#tcDimP)'},g);
+      'stroke-opacity':'.85','marker-start':'url(#tcDimP)','marker-end':'url(#tcDimP)'},g);
     txt(svg, (px+lx)/2, yd+21, 'H '+fmt(H,0)+' lb', 'middle', '15');
 
     var sbY = VH - 18, sbL = 100, sbX = 34;      /* scale bar, 100 units long */
@@ -905,6 +902,28 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
     txt(svg, lx+8, py+4, 'R '+fmt(sol.beam.RL,0)+' lb', 'start', '15');
   }
 
+  /* every sub-interval of [lo,hi] on which test() holds.  Sampled then refined, so a
+     criterion that dips below its limit in the middle of the range is not missed —
+     friction demand against thrust is V shaped and does exactly that. */
+  function intervals(lo, hi, test, N){
+    var ok = [], out = [], i, k, a, b, x0, x1, m;
+    for (i = 0; i <= N; i++) ok.push(test(lo + (hi-lo)*i/N));
+    i = 0;
+    while (i <= N){
+      if (!ok[i]){ i++; continue; }
+      a = i; while (i+1 <= N && ok[i+1]) i++;
+      b = i;
+      var L = lo + (hi-lo)*a/N, R = lo + (hi-lo)*b/N;
+      if (a > 0){ x0 = lo + (hi-lo)*(a-1)/N; x1 = L;
+        for (k = 0; k < 22; k++){ m = (x0+x1)/2; if (test(m)) x1 = m; else x0 = m; } L = x1; }
+      if (b < N){ x0 = R; x1 = lo + (hi-lo)*(b+1)/N;
+        for (k = 0; k < 22; k++){ m = (x0+x1)/2; if (test(m)) x0 = m; else x1 = m; } R = x0; }
+      out.push({lo:L, hi:R});
+      i++;
+    }
+    return out;
+  }
+
   /* the span of thrusts for which every joint stays inside the middle third,
      i.e. no joint is cracked anywhere in the ring */
   function kernRange(sol, inp){
@@ -916,28 +935,32 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
     var fits = function(H){
       return !!ArchCore.thrustLine(sol.geo, sol.beam, sol.loads, H, inp.span, {joints: kern});
     };
-    var N = 40, bi = -1;
-    for (var i = 0; i <= N; i++){
-      if (fits(G.Hmin + (G.Hmax-G.Hmin)*i/N)) { bi = i; break; }
-    }
-    if (bi < 0) return null;
-    var Hb = G.Hmin + (G.Hmax-G.Hmin)*bi/N, a, b, k, m1;
-    var lo = G.Hmin;
-    if (!fits(G.Hmin)){ a = G.Hmin; b = Hb;
-      for (k = 0; k < 18; k++){ m1=(a+b)/2; if (fits(m1)) b = m1; else a = m1; }
-      lo = b; }
-    var hi = Hb;
-    if (fits(G.Hmax)) hi = G.Hmax;
-    else { a = Hb; b = G.Hmax;
-      for (k = 0; k < 18; k++){ m1=(a+b)/2; if (fits(m1)) a = m1; else b = m1; }
-      hi = a; }
-    return { lo: lo, hi: hi };
+    var iv = intervals(G.Hmin, G.Hmax, fits, 48);
+    return iv.length ? iv : null;
+  }
+
+  /* thrusts that satisfy the compression check and do not slide */
+  function okBands(sol, inp, muAllow){
+    var G = sol.rangeGeom; if (!G) return [];
+    var S = sol.range;
+    var test = function(H){
+      if (S && (H < S.Hmin || H > S.Hmax)) return false;
+      if (!S) return false;
+      return ArchCore.muMaxAt(sol.chk, sol.beam, sol.loads, H) <= muAllow;
+    };
+    return intervals(G.Hmin, G.Hmax, test, 160);
   }
 
   /* open on a thrust line inside the middle third, at its centre when there is one */
   function centre(sol){
     var G = sol.rangeGeom; if (!G) return;
-    var target = sol.kern ? (sol.kern.lo + sol.kern.hi)/2
+    var widest = function(list){
+      var best = null;
+      (list||[]).forEach(function(b){ if (!best || (b.hi-b.lo) > (best.hi-best.lo)) best = b; });
+      return best;
+    };
+    var w1 = widest(sol.kern) || widest(state.bands);
+    var target = w1 ? (w1.lo + w1.hi)/2
       : (sol.range ? (sol.range.Hmin + sol.range.Hmax)/2 : (G.Hmin + G.Hmax)/2);
     var p = (target - G.Hmin)/((G.Hmax - G.Hmin) || 1);
     $('ta-H').value = Math.round(Math.max(0, Math.min(1, p))*1000);
@@ -952,6 +975,7 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
     catch(e){ $('ta-out').innerHTML = '<tr><td colspan="3" class="tc-flag">Geometry could not be built: '
       + e.message + '</td></tr>'; return; }
     state.sol = sol; state.inp = inp;
+    state.bands = sol.rangeGeom ? okBands(sol, inp, +$('ta-mu').value) : [];
     var sl = $('ta-H');
     if (sol.rangeGeom){
       var prev = +sl.value / 1000;
@@ -961,8 +985,6 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
       sl.value = Math.round(prev*1000);
     } else {
       sl.disabled = true;
-      $('ta-Hlo').textContent = 'no admissible thrust line';
-      $('ta-Hhi').textContent = '';
     }
     update();
 
@@ -975,6 +997,7 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
           (sol.range.Hmin + sol.range.Hmax) / 2, inp.span);
         sol.kern = kernRange(sol, inp);
         if (state.sol === sol){
+          state.bands = okBands(sol, inp, +$('ta-mu').value);
           if (!state.userMoved) centre(sol);
           update();
         }
@@ -998,26 +1021,28 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
     }
     var muAllow = +$('ta-mu').value;
     var G = sol.rangeGeom, S = sol.range;
-    var slide = ArchCore.frictionLimit(sol.chk, sol.beam, sol.loads, muAllow, G.Hmin, G.Hmax);
-    var slideGoverns = slide !== null;
-    var okLo = S ? Math.max(G.Hmin, S.Hmin) : G.Hmin;
-    var okHi = S ? Math.min(G.Hmax, S.Hmax, slideGoverns ? slide : Infinity) : G.Hmin;
-    var admissible = !!S && okHi >= okLo;
-    var slideAll = slideGoverns && admissible && slide <= okLo*(1+1e-9);
+    var bands = state.bands || [];
+    var admissible = bands.length > 0;
+    var slideAll = !admissible;
     var f = +$('ta-H').value/1000;
     var H = G.Hmin + f*(G.Hmax - G.Hmin);
-    var Hcap = admissible ? okHi : G.Hmax;
     /* inside the stress-limited range, draw a line that actually satisfies the
        compression check; outside it, fall back to the geometry alone so the state
        is still drawn — and still flagged */
     /* landing exactly on a compression limit leaves the corridor pinched to zero
        width, where the LP is numerically knife-edge; step a tenth of a percent
        inside so the state shown is a real one */
-    if (S){
-      var tolH = Math.max(2, (G.Hmax - G.Hmin)*0.002);   /* one slider step or so */
-      if (H > S.Hmin - tolH && H < S.Hmax + tolH)
-        H = Math.min(Math.max(H, S.Hmin*(1+1e-3)), S.Hmax*(1-1e-3));
+    var tolH = Math.max(2, (G.Hmax - G.Hmin)*0.002);   /* one slider step or so */
+    var inIdx = -1;
+    bands.forEach(function(b, bi2){ if (H > b.lo - tolH && H < b.hi + tolH) inIdx = bi2; });
+    if (inIdx >= 0){
+      var bb = bands[inIdx];
+      var pad3 = Math.min(tolH, (bb.hi-bb.lo)*0.02);
+      var lo3 = bb.lo + pad3, hi3 = bb.hi - pad3;
+      if (lo3 > hi3){ lo3 = hi3 = (bb.lo+bb.hi)/2; }
+      H = Math.min(Math.max(H, lo3), hi3);
     }
+    var outside = inIdx < 0;
 
     var draw = function(js){
       return ArchCore.thrustLine(sol.geo, sol.beam, sol.loads, H, inp.span, {joints: js});
@@ -1053,14 +1078,28 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
     }
 
     var span01 = function(v){ return Math.max(0, Math.min(1,(v-G.Hmin)/((G.Hmax-G.Hmin)||1))); };
+    var seg = function(list){
+      return (list||[]).map(function(b){
+        return '<i style="left:'+span01(b.lo)*100+'%;width:'
+          + Math.max(0.4,(span01(b.hi)-span01(b.lo))*100)+'%"></i>';
+      }).join('');
+    };
     var marks = [{H:G.Hmin,t:'H min'},{H:G.Hmax,t:'H max'}];
-    if (S && S.Hmin > G.Hmin*1.0001) marks.push({H:S.Hmin,t:'compression',gov:1});
-    if (S && S.Hmax < G.Hmax*0.9999) marks.push({H:S.Hmax,t:'compression',gov:1});
-    if (slideGoverns) marks.push({H:slide,t:'friction',gov:1});
-    if (sol.kern){
-      marks.push({H:sol.kern.lo,t:'middle third',mid:1});
-      marks.push({H:sol.kern.hi,t:'middle third',mid:1});
-    }
+    var edgeName = function(v){
+      /* with the compression check off, S is the geometric range and no edge is a
+         compression limit */
+      if (inp.fa > 0 && S && (Math.abs(v - S.Hmin) < tolH || Math.abs(v - S.Hmax) < tolH))
+        return 'compression';
+      return 'friction';
+    };
+    bands.forEach(function(b){
+      if (b.lo > G.Hmin*1.0001) marks.push({H:b.lo, t:edgeName(b.lo), gov:1});
+      if (b.hi < G.Hmax*0.9999) marks.push({H:b.hi, t:edgeName(b.hi), gov:1});
+    });
+    (sol.kern||[]).forEach(function(kv){
+      marks.push({H:kv.lo,t:'middle third',mid:1});
+      marks.push({H:kv.hi,t:'middle third',mid:1});
+    });
     marks.sort(function(a,b){ return a.H-b.H; });
     var span = (G.Hmax-G.Hmin)||1, merged = [];
     marks.forEach(function(m){
@@ -1093,12 +1132,8 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
         $('ta-H').value = Math.round(p2*10); update();
       });
     });
-    var bandEl=$('ta-band');
-    bandEl.style.left  = (admissible ? span01(okLo)*100 : 0)+'%';
-    bandEl.style.width = (admissible ? (span01(okHi)-span01(okLo))*100 : 0)+'%';
-    var kEl=$('ta-kern');
-    kEl.style.left  = (sol.kern ? span01(sol.kern.lo)*100 : 0)+'%';
-    kEl.style.width = (sol.kern ? (span01(sol.kern.hi)-span01(sol.kern.lo))*100 : 0)+'%';
+    $('ta-band').innerHTML = seg(bands);
+    $('ta-kern').innerHTML = seg(sol.kern);
     $('ta-now').style.left = span01(H)*100+'%';
     var trk=$('ta-track');
     if (!trk.getAttribute('data-wired')){
@@ -1118,7 +1153,6 @@ return {buildGeometry:buildGeometry, solve:solve, thrustLine:thrustLine, geoSafe
       trk.addEventListener('touchstart', function(ev){ setAt(ev); ev.preventDefault(); }, {passive:false});
       trk.addEventListener('touchmove', function(ev){ setAt(ev); ev.preventDefault(); }, {passive:false});
     }
-    var outside = !admissible || H < okLo*(1-1e-9) || H > okHi*(1+1e-9);
     drawForm(sol, inp, H, tl, crit);
     drawPolygon(sol, inp, H);
 
@@ -1262,10 +1296,10 @@ If you do something interesting with one of my tools, please tell me about it!</
   .tcalc .tc-track{position:relative;height:8px;border-radius:4px;cursor:grab;
     background:rgba(70,81,114,.14);box-shadow:inset 0 1px 2px rgba(70,81,114,.18);}
   .tcalc .tc-track:active{cursor:grabbing;}
-  .tcalc .tc-track-ok{position:absolute;top:0;height:8px;background:#2f6b4a;opacity:.42;
-    border-radius:4px;}
-  .tcalc .tc-track-kern{position:absolute;top:0;height:8px;background:#2f6b4a;opacity:.9;
-    border-radius:4px;}
+  .tcalc .tc-bandwrap{position:absolute;left:0;right:0;top:0;height:8px;}
+  .tcalc .tc-bandwrap i{position:absolute;top:0;height:8px;border-radius:4px;display:block;}
+  .tcalc .tc-bandwrap.ok i{background:#2f6b4a;opacity:.42;}
+  .tcalc .tc-bandwrap.kern i{background:#2f6b4a;opacity:.9;}
   .tcalc .tc-now{position:absolute;top:-6px;width:20px;height:20px;border-radius:50%;
     background:var(--tc-accent);border:3px solid var(--tan);
     box-shadow:0 1px 3px rgba(70,81,114,.45);transform:translateX(-10px);pointer-events:none;}
